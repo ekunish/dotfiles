@@ -1,0 +1,11 @@
+"3.2 (created: 2011/06/03 11:51:34)
+
+source! /Users/ekuni/.vimperatorrc.local
+
+" vim: set ft=vimperator:
+
+
+
+" change titleset titlestring=Shining
+
+" colorschemecolorscheme indigo" show detail levelset verbose=9set wildoptions=autoset complete=l" beep offset visualbell"wildmode=list:full" copymap <C-c> :echo Yank!<CR>Y" Backspacemap <BS> <A-Left>" h/lmap h <A-Left>map l <A-Right>" Tab transfermap H gTmap L gtmap <Left> gTmap <Right> gt" Move Tab placemap <S-Right> :tabmove! +1<CR>map <S-Left>  :tabmove! -1<CR> " migemo-hint.jsset hintmatching=custom" maine_coon.jsset mainecoon=am
