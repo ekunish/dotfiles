@@ -1,2 +1,5 @@
 /.vim/bundle/
 /.vimperator/
+.gitignore
+.gitmodules
+.viminfo
