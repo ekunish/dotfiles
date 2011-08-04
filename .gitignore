@@ -3,3 +3,8 @@
 .gitignore
 .gitmodules
 .viminfo
+.vim/colors/wombat.vim
+
+.gitignore
+
+.vim/colors/lucius.vim
