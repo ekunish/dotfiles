@@ -1,6 +1,7 @@
 "カラースキーム
 syntax enable
-"colorscheme 
+"colorscheme
+
 
 "ビープ音消音
 set visualbell
@@ -154,5 +155,26 @@ Bundle 'ujihisa/unite-colorscheme'
 filetype plugin indent on
 
 
+" -------------------
+" neocomplcashe
+" -------------------
+
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" AutoComplPop like behavior.
+let g:neocomplcache_enable_auto_select = 1
 
 
