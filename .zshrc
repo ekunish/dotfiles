@@ -1,198 +1,170 @@
-export PATH=/Applications/gnuplot.app:/Applications/gnuplot.app/bin:$PATH
+################################# anyenv ##################################
+# install
+export PATH="~/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
+
+# export PATH="$HOME/.pyenv/bin:$PATH"
+
+export EDITOR=nvim
+export VISUAL="$EDITOR"
+
+#################################  Android SDK  ################################
+export PATH="/Users/ekunish/Library/Android/sdk/platform-tools:$PATH"
 
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-  # Load RVM into a shell session *as a function*
+
+################################# starship ################################
+
+if [ -e "$HOME/.nodenv" ]
+then
+  export NODENV_ROOT="$HOME/.nodenv"
+  export PATH="$NODENV_ROOT/bin:$PATH"
+  if command -v nodenv 1>/dev/null 2>&1
+  then
+    eval "$(nodenv init -)"
+  fi
+fi
+
+eval "$(starship init zsh)"
 
 
+################################# conda ##################################
 
-# users generic .zshrc file for zsh(1)
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/ekunish/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/ekunish/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ekunish/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/ekunish/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
-## Environment variable configuration
-#
-# LANG
-#
-export LANG=ja_JP.UTF-8
-case ${UID} in
-0)
-    LANG=C
-    ;;
-esac
+
+#################################  HISTORY  ####################################
+# history
+HISTFILE=$HOME/.zsh-history # 履歴を保存するファイル
+HISTSIZE=100000             # メモリ上に保存する履歴のサイズ
+SAVEHIST=1000000            # 上述のファイルに保存する履歴のサイズ
+
+# share .zshhistory
+setopt inc_append_history   # 実行時に履歴をファイルにに追加していく
+setopt share_history        # 履歴を他のシェルとリアルタイム共有する
 
 
-## Default shell configuration
-#
-# set prompt
-#
-autoload colors
-colors
-case ${UID} in
-0)
-    PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') %B%{${fg[red]}%}%/#%{${reset_color}%}%b "
-    PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
-    SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
-    ;;
-*)
-    PROMPT="%{${fg[red]}%}%/%%%{${reset_color}%} "
-    PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
-    SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-    ;;
-esac
+#################################  COMPLEMENT  #################################
+# enable completion
+autoload -Uz compinit && compinit
 
-# auto change directory
-#
+# 補完候補をそのまま探す -> 小文字を大文字に変えて探す -> 大文字を小文字に変えて探す
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
+
+### 補完方法毎にグループ化する。
+zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' group-name ''
+
+
+### 補完侯補をメニューから選択する。
+### select=2: 補完候補を一覧から選択する。補完候補が2つ以上なければすぐに補完する。
+zstyle ':completion:*:default' menu select=2
+
+
+#################################  OTHERS  #################################
+# automatically change directory when dir name is typed
 setopt auto_cd
 
-# auto directory pushd that you can get dirs list by cd -[tab]
-#
-setopt auto_pushd
-
-# command correct edition before each completion attempt
-#
-setopt correct
-
-# compacked complete list display
-#
-setopt list_packed
-
-# no remove postfix slash of command line
-#
-setopt noautoremoveslash
-
-# no beep sound when complete list displayed
-#
-setopt nolistbeep
+# disable ctrl+s, ctrl+q
+setopt no_flow_control
 
 
-## Keybind configuration
-#
-# emacs like keybind (e.x. Ctrl-a gets to line head and Ctrl-e gets
-#   to end) and something additions
-#
-bindkey -e
-bindkey "^[[1~" beginning-of-line # Home gets to line head
-bindkey "^[[4~" end-of-line # End gets to line end
-bindkey "^[[3~" delete-char # Del
 
-# historical backward/forward search with linehead string binded to ^P/^N
-#
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
-bindkey "\\ep" history-beginning-search-backward-end
-bindkey "\\en" history-beginning-search-forward-end
+#################################  Zplug  #################################
+export ZPLUG_HOME=$(brew --prefix)/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
-# reverse menu completion binded to Shift-Tab
-#
-bindkey "\e[Z" reverse-menu-complete
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-
-## Command history configuration
-#
-HISTFILE=${HOME}/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
+# 非同期処理できるようになる
+zplug "mafredri/zsh-async"
+# 構文のハイライト(https://github.com/zsh-users/zsh-syntax-highlighting)
+zplug "zsh-users/zsh-syntax-highlighting"
+# コマンド入力途中で上下キー押したときの過去履歴がいい感じに出るようになる
+zplug "zsh-users/zsh-history-substring-search"
+# 過去に入力したコマンドの履歴が灰色のサジェストで出る
+zplug "zsh-users/zsh-autosuggestions"
+zplug "hchbaw/auto-fu.zsh"
+# 補完強化
+zplug "zsh-users/zsh-completions"
+# 256色表示にする
+zplug "chrissicool/zsh-256color"
+# コマンドライン上の文字リテラルの絵文字を emoji 化する
+zplug "mrowa44/emojify", as:command
 
 
-## Completion configuration
-#
-fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-autoload -U compinit
-compinit
+zplug "agkozak/zsh-z"
+zplug "kazhala/dotbare"
+
+# zplug "Aloxaf/fzf-tab"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+
+zplug load
 
 
-## zsh editor
-#
-autoload zed
+bindkey '^I'   complete-word       # tab          | complete
+bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 
 
-## Prediction configuration
-#
-#autoload predict-on
-#predict-off
+################################# pmy #####################################
+# 補完のトリガーを変更 (Ctrl+P)
+# export PMY_TRIGGER_KEY="^e"
+# eval "$(pmy init)"
 
 
-## Alias configuration
-#
-# expand aliases before completing
-#
-setopt complete_aliases     # aliased ls needs if file/dir completions work
-
-alias where="command -v"
-alias j="jobs -l"
-
-case "${OSTYPE}" in
-freebsd*|darwin*)
-    alias ls="ls -G -w"
-    ;;
-linux*)
-    alias ls="ls --color"
-    ;;
-esac
-
-alias la="ls -a"
-alias lf="ls -F"
-alias ll="ls -l"
-
-alias du="du -h"
-alias df="df -h"
-
-alias su="su -l"
+#################################  NEOVIM  ################################
+export XDG_CONFIG_HOME="$HOME/.config"
 
 
-## terminal configuration
-#
-case "${TERM}" in
-screen)
-    TERM=xterm
-    ;;
-esac
 
-case "${TERM}" in
-xterm|xterm-color)
-    export LSCOLORS=exfxcxdxbxegedabagacad
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-    ;;
-kterm-color)
-    stty erase '^H'
-    export LSCOLORS=exfxcxdxbxegedabagacad
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-    ;;
-kterm)
-    stty erase '^H'
-    ;;
-cons25)
-    unset LANG
-    export LSCOLORS=ExFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-    ;;
-jfbterm-color)
-    export LSCOLORS=gxFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;36:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-    ;;
-esac
+#################################  Lunarvim  ################################
+#export PATH="your-dir:$PATH" #/Users/ekunish/.local/bin/lvim
+export PATH="~/.local/bin:$PATH"
+alias lvim="~/.local/bin/lvim"
 
-# set terminal title including current directory
-#
-case "${TERM}" in
-xterm|xterm-color|kterm|kterm-color)
-    precmd() {
-        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-    }
-    ;;
-esac
+#################################  exa  #################################
+
+if [[ $(command -v exa) ]]; then
+  alias e='exa --icons --git'
+  alias l=e
+  # alias ls=e
+  alias ls='exa -a --icons --git'
+  alias ea='exa -a --icons --git'
+  alias la=ea
+  alias ee='exa -aahl --icons --git'
+  alias ll=ee
+  alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+  alias lt=et
+  alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+  alias lta=eta
+  alias l='clear && ls'
+fi
 
 
-## load user .zshrc configuration file
-#
-[ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
+#################################  fzf  #################################
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#################################  original command  #################################
+ip () {ifconfig | grep 192}
+reload () { exec $SHELL -l}

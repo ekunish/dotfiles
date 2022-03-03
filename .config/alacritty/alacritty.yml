@@ -1,0 +1,101 @@
+# Dracula theme for Alacritty
+# https://draculatheme.com/alacritty
+#
+# Color palette
+# https://spec.draculatheme.com
+#
+# Template
+# https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+
+colors:
+  primary:
+    background: "#282a36"
+    foreground: "#f8f8f2"
+    bright_foreground: "#ffffff"
+  cursor:
+    text: CellBackground
+    cursor: CellForeground
+  vi_mode_cursor:
+    text: CellBackground
+    cursor: CellForeground
+  search:
+    matches:
+      foreground: "#44475a"
+      background: "#50fa7b"
+    focused_match:
+      foreground: "#44475a"
+      background: "#ffb86c"
+    bar:
+      background: "#282a36"
+      foreground: "#f8f8f2"
+  hints:
+    start:
+      foreground: "#282a36"
+      background: "#f1fa8c"
+    end:
+      foreground: "#f1fa8c"
+      background: "#282a36"
+  line_indicator:
+    foreground: None
+    background: None
+  selection:
+    text: CellForeground
+    background: "#44475a"
+  normal:
+    black: "#000000"
+    red: "#ff5555"
+    orange: "#ffb86c"
+    green: "#50fa7b"
+    yellow: "#f1fa8c"
+    purple: "#bd93f9"
+    blue: "#bd93f9"
+    magenta: "#ff79c6"
+    cyan: "#8be9fd"
+    # cyan: "#005f87"
+    white: "#f8f8f2"
+    pink: "#FF449F"
+  bright:
+    black: "#4d4d4d"
+    red: "#ff5555"
+    green: "#69ff94"
+    yellow: "#ffffa5"
+    blue: "#d6acff"
+    magenta: "#ff92df"
+    cyan: "#a4ffff"
+    # cyan: "#005f87"
+    white: "#e6e6e6"
+
+# Font
+font:
+  size: 13
+  normal:
+    family: "Hack Nerd Font Mono"
+    style: Regular
+  bold:
+    family: "Hack Nerd Font Mono"
+    style: Bold
+  italic:
+    family: "Hack Nerd Font Mono"
+    style: Italic
+  bold_italic:
+    family: "Hack Nerd Font Mono"
+    style: Bold Itali
+  offset:
+    x: 1
+    y: 1
+  use_thin_strokes: true
+
+window:
+  opacity: 0.92
+  decorations: Transparent
+  dimensions:
+    columns: 200
+    lines: 60
+  padding:
+    y: 0
+  dynamic_padding: true
+  # startup_mode: SimpleFullscreen
+
+# env
+env:
+  TERM: alacritty

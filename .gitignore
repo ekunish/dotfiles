@@ -1,10 +1,38 @@
-/.vim/bundle/
-/.vimperator/
-.gitignore
-.gitmodules
-.viminfo
-.vim/colors/wombat.vim
+# 全てのファイルを一度、無視
+/*
 
-.gitignore
+# さらに、ドットから始まる設定ファイルを無視
+/.*
 
-.vim/colors/lucius.vim
+# "無視したくないファイル"は以下に"![ファイル名]"で指定
+##### Gitで管理するファイルリスト #####
+!/bin
+
+!/.gitignore
+!/.gitconfig
+!/.gitmodules
+
+!/.zshrc
+!/.fzf.zsh
+
+!/.tmux.conf
+
+!/.config
+
+!/Brewfile
+
+# 上記に"無視したくないファイル"としてリスト化した中から、さらに"無視したいファイル"を指定
+/.config/anyenv
+/.config/Autodesk
+/.config/configstore
+/.config/efm-langserver
+/.config/flutter
+/.config/gatsby
+/.config/github_copilot
+/.config/NuGet
+/.config/stetic
+/.config/tool_state
+/.config/wezterm
+/.config/xbuild
+/.config/yarn
+
