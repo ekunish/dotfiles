@@ -5,4 +5,4 @@ set -eux
 brew update
 brew upgrade
 
-source $HOME/dotfiles/sync.sh
+source $HOME/dotfiles/bin/sync.sh

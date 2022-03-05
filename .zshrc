@@ -9,7 +9,7 @@ export EDITOR=nvim
 export VISUAL="$EDITOR"
 
 #################################  Android SDK  ################################
-export PATH="/Users/ekunish/Library/Android/sdk/platform-tools:$PATH"
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
 
 
@@ -21,7 +21,7 @@ then
   export PATH="$NODENV_ROOT/bin:$PATH"
   if command -v nodenv 1>/dev/null 2>&1
   then
-    eval "$(nodenv init -)"
+    eval "$(nodenv init - --no-rehash)"
   fi
 fi
 
@@ -32,14 +32,14 @@ eval "$(starship init zsh)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/ekunish/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/ekunish/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/ekunish/opt/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/opt/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/ekunish/opt/anaconda3/bin:$PATH"
+        export PATH="$HOME/opt/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -138,7 +138,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 
 
 #################################  Lunarvim  ################################
-#export PATH="your-dir:$PATH" #/Users/ekunish/.local/bin/lvim
+#export PATH="your-dir:$PATH" #$HOME/.local/bin/lvim
 export PATH="~/.local/bin:$PATH"
 alias lvim="~/.local/bin/lvim"
 

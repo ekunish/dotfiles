@@ -27,7 +27,7 @@ local diff = {
 local mode = {
   "mode",
   fmt = function(str)
-    return "-- " .. str .. " --"
+    return " " .. str .. " "
   end,
 }
 
@@ -58,7 +58,7 @@ local progress = {
     local index = math.ceil(line_ratio * #chars)
     return chars[index]
   end,
-  -- padding = { left = 0, right = 0},
+  padding = { left = 0, right = 0},
   cond = nil
 }
 
