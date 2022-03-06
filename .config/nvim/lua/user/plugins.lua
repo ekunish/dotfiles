@@ -64,6 +64,9 @@ return packer.startup(function(use)
   use "lunarvim/darkplus.nvim"
   use "dracula/vim"
 
+  -- Galaxyline
+  -- use"NTBBloodbath/galaxyline.nvim"
+
   -- tmux
   use  "aserowy/tmux.nvim"
 

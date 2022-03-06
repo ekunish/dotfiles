@@ -86,7 +86,7 @@ font:
   use_thin_strokes: true
 
 window:
-  opacity: 0.92
+  opacity: 0.98
   decorations: Transparent
   dimensions:
     columns: 200
