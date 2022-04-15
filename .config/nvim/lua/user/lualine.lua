@@ -3,27 +3,27 @@ if not status_ok then
   return
 end
 
--- local hide_in_width = function()
---   return vim.fn.winwidth(0) > 80
--- end
---
--- local diagnostics = {
---   "diagnostics",
---   sources = { "nvim_diagnostic" },
---   sections = { "error", "warn" },
---   symbols = { error = " ", warn = " " },
---   colored = false,
---   update_in_insert = false,
---   always_visible = true,
--- }
---
--- local diff = {
---   "diff",
---   colored = false,
---   symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
---   cond = hide_in_width
--- }
---
+local hide_in_width = function()
+  return vim.fn.winwidth(0) > 80
+end
+
+local diagnostics = {
+  "diagnostics",
+  sources = { "nvim_diagnostic" },
+  sections = { "error", "warn" },
+  symbols = { error = " ", warn = " " },
+  colored = false,
+  update_in_insert = false,
+  always_visible = true,
+}
+
+local diff = {
+  "diff",
+  colored = false,
+  symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+  cond = hide_in_width
+}
+
 -- local mode = {
 --   "mode",
 --   fmt = function(str)
@@ -37,11 +37,11 @@ end
 --   icon = nil,
 -- }
 --
--- local branch = {
---   "branch",
---   icons_enabled = true,
---   icon = "",
--- }
+local branch = {
+  "branch",
+  icons_enabled = true,
+  icon = "",
+}
 --
 -- local location = {
 --   "location",
@@ -131,7 +131,7 @@ local bubbles_theme = {
   },
 }
 
-require('lualine').setup {
+lualine.setup {
   options = {
     theme = bubbles_theme,
     component_separators = '|',
@@ -142,7 +142,7 @@ require('lualine').setup {
     lualine_a = {
       { 'mode', separator = { left = '' }, right_padding = 2 },
     },
-    lualine_b = { 'filename', 'branch' },
+    lualine_b = { 'filename', branch, diagnostics, diff},
     lualine_c = { 'fileformat' },
     lualine_x = {},
     lualine_y = { 'filetype', 'progress' },
@@ -151,11 +151,11 @@ require('lualine').setup {
     },
   },
   inactive_sections = {
-    lualine_a = { 'filename' },
-    lualine_b = {},
+    lualine_a = { 'filename', 'branch' },
+    lualine_b = { 'fileformat' },
     lualine_c = {},
     lualine_x = {},
-    lualine_y = {},
+    lualine_y = { 'filetype', 'progress' },
     lualine_z = { 'location' },
   },
   tabline = {},
