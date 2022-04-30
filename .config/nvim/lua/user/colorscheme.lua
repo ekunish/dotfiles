@@ -1,7 +1,7 @@
 vim.cmd [[
 try
   colorscheme dracula
-  highlight Normal ctermbg=NONE guibg=NONE
+  " highlight Normal ctermbg=NONE guibg=NONE
   highlight LineNr ctermbg=NONE guibg=NONE
   highlight Folded ctermbg=NONE guibg=NONE
   highlight DiffDelete guibg=NONE ctermbg=NONE guifg=#FF5555 ctermfg=red

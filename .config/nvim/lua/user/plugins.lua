@@ -68,7 +68,7 @@ return packer.startup(function(use)
   -- use"NTBBloodbath/galaxyline.nvim"
 
   -- tmux
-  use  "aserowy/tmux.nvim"
+  use "aserowy/tmux.nvim"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -77,6 +77,17 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
   use "hrsh7th/cmp-nvim-lsp"
+  use "ray-x/cmp-treesitter"
+  use "hrsh7th/cmp-calc"
+  use "hrsh7th/cmp-emoji"
+
+  -- Copilot.vim
+  use "github/copilot.vim"
+  use "zbirenbaum/copilot.lua"
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua", "nvim-cmp" },
+  }
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
@@ -89,6 +100,7 @@ return packer.startup(function(use)
   use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
   use "ray-x/lsp_signature.nvim"
   use "glepnir/lspsaga.nvim"
+  use "j-hui/fidget.nvim"
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
@@ -99,6 +111,7 @@ return packer.startup(function(use)
     run = ":TSUpdate",
   }
   use "JoosepAlviste/nvim-ts-context-commentstring"
+  use "windwp/nvim-ts-autotag"
 
   -- Git
   use "lewis6991/gitsigns.nvim"

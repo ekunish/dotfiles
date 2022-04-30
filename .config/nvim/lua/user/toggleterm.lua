@@ -20,8 +20,8 @@ toggleterm.setup({
     border = "curved",
     winblend = 0,
     highlights = {
-      border = "Normal",
-      background = "Normal",
+      border = "#282a36",
+      background = "#282a36",
     },
   },
 })
