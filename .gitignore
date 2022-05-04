@@ -35,4 +35,4 @@
 /.config/wezterm
 /.config/xbuild
 /.config/yarn
-
+.config/github-copilo/
