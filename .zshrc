@@ -32,14 +32,14 @@ eval "$(starship init zsh)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/ekunish/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/opt/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/ekunish/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ekunish/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="$HOME/opt/anaconda3/bin:$PATH"
+        export PATH="/Users/ekunish/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -92,7 +92,8 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # 非同期処理できるようになる
 zplug "mafredri/zsh-async"
 # 構文のハイライト(https://github.com/zsh-users/zsh-syntax-highlighting)
-zplug "zsh-users/zsh-syntax-highlighting"
+# zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zdharma-continuum/fast-syntax-highlighting"
 # コマンド入力途中で上下キー押したときの過去履歴がいい感じに出るようになる
 zplug "zsh-users/zsh-history-substring-search"
 # 過去に入力したコマンドの履歴が灰色のサジェストで出る

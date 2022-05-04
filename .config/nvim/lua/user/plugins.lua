@@ -75,19 +75,32 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-buffer" -- buffer completions
   use "hrsh7th/cmp-path" -- path completions
   use "hrsh7th/cmp-cmdline" -- cmdline completions
+  -- use "dmitmel/cmp-cmdline-history" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
   use "hrsh7th/cmp-nvim-lsp"
   use "ray-x/cmp-treesitter"
   use "hrsh7th/cmp-calc"
   use "hrsh7th/cmp-emoji"
 
+
+  -- wilder
+  use {"gelguy/wilder.nvim"}
+
   -- Copilot.vim
   use "github/copilot.vim"
-  use "zbirenbaum/copilot.lua"
-  use {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua", "nvim-cmp" },
-  }
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  --   event = { "VimEnter" },
+  --   config = function()
+  --     vim.defer_fn(function()
+  --       require("copilot").setup()
+  --     end, 100)
+  --   end,
+  -- }
+  -- use {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua", "nvim-cmp" },
+  -- }
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
