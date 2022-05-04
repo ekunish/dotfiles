@@ -28,11 +28,10 @@
 /.config/efm-langserver
 /.config/flutter
 /.config/gatsby
-/.config/github_copilot
+/.config/github-copilot
 /.config/NuGet
 /.config/stetic
 /.config/tool_state
 /.config/wezterm
 /.config/xbuild
 /.config/yarn
-.config/github-copilo/
