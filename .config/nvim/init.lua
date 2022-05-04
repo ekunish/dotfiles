@@ -20,7 +20,6 @@ require("user.alpha")
 require("user.whichkey")
 require("user.autocommands")
 require("user.tmux")
--- require "user.wilder"
 require("user.faster")
 require("user.symbols-outlines")
 require("user.lsp.lsp_signature")
