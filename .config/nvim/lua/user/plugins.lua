@@ -58,11 +58,16 @@ return packer.startup(function(use)
   use("goolord/alpha-nvim")
   use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
   use("folke/which-key.nvim")
+  use("simeji/winresizer")
+  use("mvllow/modes.nvim")
+  use("petertriho/nvim-scrollbar")
+  use("kevinhwang91/nvim-hlslens")
 
   -- Colorschemes
   -- use("lunarvim/colorschemes") -- A bunch of colorschemes you can try out
   -- use("lunarvim/darkplus.nvim")
   use("dracula/vim")
+  -- use("Mofiqul/dracula.nvim")
 
   -- Galaxyline
   -- use"NTBBloodbath/galaxyline.nvim"
@@ -82,8 +87,11 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-calc")
   use("hrsh7th/cmp-emoji")
 
+  -- tab nine
+  use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
+
   -- wilder
-  use({ "gelguy/wilder.nvim" })
+  -- use({ "gelguy/wilder.nvim" })
 
   -- Copilot.vim
   use("github/copilot.vim")
@@ -116,6 +124,7 @@ return packer.startup(function(use)
 
   -- Telescope
   use("nvim-telescope/telescope.nvim")
+  use("nvim-telescope/telescope-media-files.nvim")
 
   -- Treesitter
   use({
@@ -124,6 +133,7 @@ return packer.startup(function(use)
   })
   use("JoosepAlviste/nvim-ts-context-commentstring")
   use("windwp/nvim-ts-autotag")
+  use("haringsrob/nvim_context_vt")
 
   -- Git
   use("lewis6991/gitsigns.nvim")

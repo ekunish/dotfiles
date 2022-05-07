@@ -7,6 +7,8 @@
 # Template
 # https://github.com/alacritty/alacritty/blob/master/alacritty.yml
 
+# import:
+#   - "./dracula.yml"
 colors:
   primary:
     background: "#282a36"
@@ -42,28 +44,29 @@ colors:
     text: CellForeground
     background: "#44475a"
   normal:
-    black: "#000000"
+    black: "#757575"
     red: "#ff5555"
     orange: "#ffb86c"
     green: "#50fa7b"
-    yellow: "#f1fa8c"
+    yellow: "#B5FF14"
     purple: "#bd93f9"
     blue: "#bd93f9"
     magenta: "#ff79c6"
-    cyan: "#8be9fd"
-    # cyan: "#005f87"
+    cyan: "#9580FF"
     white: "#f8f8f2"
-    pink: "#FF449F"
+    pink: "#FF14B5"
   bright:
-    black: "#4d4d4d"
+    black: "#757575"
     red: "#ff5555"
-    green: "#69ff94"
-    yellow: "#ffffa5"
-    blue: "#d6acff"
-    magenta: "#ff92df"
-    cyan: "#a4ffff"
-    # cyan: "#005f87"
-    white: "#e6e6e6"
+    orange: "#ffb86c"
+    green: "#50fa7b"
+    yellow: "#B5FF14"
+    purple: "#bd93f9"
+    blue: "#bd93f9"
+    magenta: "#ff79c6"
+    cyan: "#9580FF"
+    white: "#f8f8f2"
+    pink: "#FF14B5"
 
 # Font
 font:
@@ -86,15 +89,17 @@ font:
   use_thin_strokes: true
 
 window:
-  opacity: 0.98
+  opacity: 0.96
   decorations: Transparent
   dimensions:
-    columns: 200
-    lines: 60
+    columns: 210
+    lines: 68
   padding:
     y: 0
   dynamic_padding: true
   # startup_mode: SimpleFullscreen
+
+live_config_reload: true
 
 # env
 env:

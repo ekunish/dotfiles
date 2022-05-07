@@ -36,6 +36,7 @@ local options = {
   sidescrolloff = 8,
   -- guifont = "monospace:h17",               -- the font used in graphical neovim applications
   list = true,
+  linespace = 0,
 }
 
 vim.opt.list = true
