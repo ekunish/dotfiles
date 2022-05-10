@@ -108,7 +108,7 @@ cmp.setup({
         luasnip = "[Snip]",
         buffer = "[Buf]",
         treesitter = "[TS]",
-        cmp_tabnine = "[TN]",
+        --cmp_tabnine = "[TN]",
         -- copilot = "[Copilot]",
       })[entry.source.name]
       return vim_item
@@ -117,12 +117,12 @@ cmp.setup({
   sorting = {
     priority_weight = 2,
     comparators = {
+      cmp.config.compare.score,
+      cmp.config.compare.kind,
       cmp.config.compare.offset,
       cmp.config.compare.exact,
-      cmp.config.compare.kind,
-      cmp.config.compare.score,
       cmp.config.compare.recently_used,
-      require("cmp_tabnine.compare"),
+      --require("cmp_tabnine.compare"),
       cmp.config.compare.sort_text,
       cmp.config.compare.length,
       cmp.config.compare.order,
@@ -136,7 +136,7 @@ cmp.setup({
     { name = "emoji", group_index = 2 },
     { name = "luasnip", group_index = 2 },
     { name = "treesitter", group_index = 2 },
-    { name = "cmp_tabnine", group_index = 2 },
+    --{ name = "cmp_tabnine", group_index = 2 },
     -- { name = "copilot", group_index = 2 },
   },
   confirm_opts = {
