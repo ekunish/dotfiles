@@ -45,8 +45,8 @@ return packer.startup(function(use)
   use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
   use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
   use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-  use("numToStr/Comment.nvim") -- Easily comment stuff
-  -- use("tpope/vim-commentary")
+  -- use("numToStr/Comment.nvim") -- Easily comment stuff
+  use("tpope/vim-commentary")
   use("kyazdani42/nvim-web-devicons")
   use("kyazdani42/nvim-tree.lua")
   use("akinsho/bufferline.nvim")
@@ -65,8 +65,7 @@ return packer.startup(function(use)
   use("kevinhwang91/nvim-hlslens")
 
   -- Colorschemes
-  -- use("lunarvim/colorschemes") -- A bunch of colorschemes you can try out
-  -- use("lunarvim/darkplus.nvim")
+  use("tiagovla/tokyodark.nvim")
   use("dracula/vim")
   -- use("Mofiqul/dracula.nvim")
 
@@ -89,7 +88,7 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-emoji")
 
   -- tab nine
-  use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
+  -- use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
 
   -- wilder
   -- use({ "gelguy/wilder.nvim" })
@@ -135,6 +134,7 @@ return packer.startup(function(use)
   use("JoosepAlviste/nvim-ts-context-commentstring")
   use("windwp/nvim-ts-autotag")
   use("haringsrob/nvim_context_vt")
+  use("p00f/nvim-ts-rainbow")
 
   -- Git
   use("lewis6991/gitsigns.nvim")
