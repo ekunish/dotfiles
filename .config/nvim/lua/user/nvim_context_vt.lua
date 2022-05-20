@@ -11,10 +11,11 @@ nvim_context_vt.setup({
   -- Override default virtual text prefix
   -- Default: '-->'
   -- prefix = "",
+  prefix = "→",
 
   -- Override the internal highlight group name
   -- Default: 'ContextVt'
-  -- highlight = "CustomContextVt",
+  highlight = "NvimContextVt",
 
   -- Disable virtual text for given filetypes
   -- Default: { 'markdown' }
@@ -35,38 +36,4 @@ nvim_context_vt.setup({
   -- Same as above but only for spesific filetypes
   -- Default: {}
   min_rows_ft = {},
-
-  -- Custom virtual text node parser callback
-  -- Default: nil
-
-  --   -- If you return `nil`, no virtual text will be displayed.
-  --   if node:type() == 'function' then
-  --     return nil
-  --   end
-
-  --   -- This is the standard text
-  --   return '--> ' .. utils.get_node_text(node)[1]
-  -- end,
-
-  -- -- Custom node validator callback
-  -- -- Default: nil
-  -- custom_validator = function(node, ft, opts)
-  --   -- Internally a node is matched against min_rows and configured targets
-  --   local default_validator = require('nvim_context_vt.utils').default_validator
-  --   if default_validator(node, ft) then
-  --     -- Custom behaviour after using the internal validator
-  --     if node:type() == 'function' then
-  --       return false
-  --     end
-  --   end
-
-  --   return true
-  -- end,
-
-  -- -- Custom node virtual text resolver callback
-  -- -- Default: nil
-  -- custom_resolver = function(nodes, ft, opts)
-  --   -- By default the last node is used
-  --   return nodes[#nodes]
-  -- end,
 })

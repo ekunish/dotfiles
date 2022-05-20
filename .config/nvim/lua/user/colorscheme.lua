@@ -17,6 +17,14 @@
 -- Lua:
 vim.cmd([[colorscheme dracula]])
 
+vim.cmd([[highlight NvimContextVt ctermbg=NONE guibg=NONE guifg=#6B6B6B]])
+vim.cmd([[highlight LspDiagnosticsDefaultHint ctermbg=NONE guibg=NONE guifg=#BD93F9]])
+vim.cmd([[highlight String ctermbg=NONE guibg=NONE guifg=#BD93F9]])
+vim.cmd([[highlight Tag ctermbg=NONE guibg=NONE guifg=#BD93F9]])
+vim.cmd([[highlight DiagnosticInfo ctermbg=NONE guibg=NONE guifg=#BD93F9]])
+vim.cmd([[highlight DiagnosticHint ctermbg=NONE guibg=NONE guifg=#BD93F9]])
+vim.cmd([[highlight SpecialComment ctermbg=NONE guibg=NONE guifg=#BD93F9]])
+
 -- customize dracula color palette
 -- vim.g.dracula_colors = {
 --   -- bg = "#282A36",

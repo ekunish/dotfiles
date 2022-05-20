@@ -56,44 +56,19 @@ cmp.setup({
     ["<C-j>"] = cmp.mapping.select_next_item(),
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-    -- ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    ["<S-Tab>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ["<C-e>"] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    -- Accept currently selected item. If none selected, `select` first item.
-    -- Set `select` to `false` to only confirm explicitly selected items.
+    ["<C-l>"] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    -- ["<Tab>"] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_next_item()
-    --   elseif luasnip.expandable() then
-    --     luasnip.expand()
-    --   elseif luasnip.expand_or_jumpable() then
-    --     luasnip.expand_or_jump()
-    --   elseif check_backspace() then
-    --     fallback()
-    --   else
-    --     fallback()
-    --   end
-    -- end, {
-    --   "i",
-    --   "s",
-    -- }),
-    -- ["<S-Tab>"] = cmp.mapping(function(fallback)
-    --   if cmp.visible() then
-    --     cmp.select_prev_item()
-    --   elseif luasnip.jumpable(-1) then
-    --     luasnip.jump(-1)
-    --   else
-    --     fallback()
-    --   end
-    -- end, {
-    --   "i",
-    --   "s",
-    -- }),
   },
   formatting = {
     fields = { "abbr", "kind", "menu" },
@@ -102,14 +77,16 @@ cmp.setup({
       vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
+        nvim_lua = "[Lua]",
         path = "[Path]",
         emoji = "[Emoji]",
         calc = "[Calc]",
         luasnip = "[Snip]",
         buffer = "[Buf]",
         treesitter = "[TS]",
-        --cmp_tabnine = "[TN]",
-        -- copilot = "[Copilot]",
+        -- cmp_tabnine = "[TN]",
+        omni = "[Omni]",
+        copilot = "[CP]",
       })[entry.source.name]
       return vim_item
     end,
@@ -118,26 +95,28 @@ cmp.setup({
     priority_weight = 2,
     comparators = {
       cmp.config.compare.score,
-      cmp.config.compare.kind,
+      -- require("cmp_tabnine.compare"),
       cmp.config.compare.offset,
       cmp.config.compare.exact,
+      cmp.config.compare.kind,
       cmp.config.compare.recently_used,
-      --require("cmp_tabnine.compare"),
       cmp.config.compare.sort_text,
       cmp.config.compare.length,
       cmp.config.compare.order,
     },
   },
   sources = {
+    { name = "copilot", group_index = 2, priority = 90 },
     { name = "nvim_lsp", group_index = 2 },
+    { name = "nvim_lua", group_index = 2 },
     { name = "buffer", group_index = 2 },
     { name = "path", group_index = 2 },
     { name = "calc", group_index = 2 },
     { name = "emoji", group_index = 2 },
-    { name = "luasnip", group_index = 2 },
+    { name = "luasnip", group_index = 2, priority = 90 },
     { name = "treesitter", group_index = 2 },
-    --{ name = "cmp_tabnine", group_index = 2 },
-    -- { name = "copilot", group_index = 2 },
+    -- { name = "cmp_tabnine", group_index = 2 },
+    { name = "omni", group_index = 2 },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

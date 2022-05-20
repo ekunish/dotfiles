@@ -86,16 +86,18 @@ return packer.startup(function(use)
   use("ray-x/cmp-treesitter")
   use("hrsh7th/cmp-calc")
   use("hrsh7th/cmp-emoji")
+  use("hrsh7th/cmp-omni")
 
   -- tab nine
-  -- use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
+  use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
 
   -- wilder
   -- use({ "gelguy/wilder.nvim" })
 
   -- Copilot.vim
   use("github/copilot.vim")
-  -- use {
+  use("hrsh7th/cmp-copilot")
+  -- use({
   --   "zbirenbaum/copilot.lua",
   --   event = { "VimEnter" },
   --   config = function()
@@ -103,11 +105,11 @@ return packer.startup(function(use)
   --       require("copilot").setup()
   --     end, 100)
   --   end,
-  -- }
-  -- use {
+  -- })
+  -- use({
   --   "zbirenbaum/copilot-cmp",
   --   after = { "copilot.lua", "nvim-cmp" },
-  -- }
+  -- })
 
   -- snippets
   use("L3MON4D3/LuaSnip") --snippet engine
@@ -150,6 +152,8 @@ return packer.startup(function(use)
 
   -- nvim-notify
   use("rcarriga/nvim-notify")
+
+  use("norcalli/nvim-colorizer.lua")
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
