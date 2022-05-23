@@ -36,9 +36,9 @@ local lspconfig = require("lspconfig")
 
 lspconfig.sumneko_lua.setup(opts)
 lspconfig.tsserver.setup(opts)
+lspconfig.eslint.setup(opts)
+lspconfig.intelephense.setup(opts)
 lspconfig.tailwindcss.setup({
   opts,
   -- cmd = { "yarn", "tailwindcss-language-server", "--stdio" },
-  -- on_attach = require("user.lsp.handlers").on_attach,
-  -- capabilities = require("user.lsp.handlers").capabilities,
 })
