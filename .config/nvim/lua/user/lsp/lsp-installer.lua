@@ -35,8 +35,12 @@ require("nvim-lsp-installer").setup({})
 local lspconfig = require("lspconfig")
 
 lspconfig.sumneko_lua.setup(opts)
-lspconfig.tsserver.setup(opts)
-lspconfig.eslint.setup(opts)
+lspconfig.eslint.setup(opts )
+lspconfig.tsserver.setup(opts, {
+  solargraph = {
+    diagnostics = false,
+  },
+})
 lspconfig.intelephense.setup(opts)
 lspconfig.tailwindcss.setup({
   opts,
