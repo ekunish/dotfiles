@@ -11,7 +11,7 @@ export VISUAL="$EDITOR"
 #################################  Android SDK  ################################
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
-
+alias bundletool="java -jar $HOME/bundletool/bundletool-all-1.10.0.jar"
 
 ################################# starship ################################
 

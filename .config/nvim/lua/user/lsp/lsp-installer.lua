@@ -16,10 +16,10 @@ local opts = {
 --     opts = vim.tbl_deep_extend("force", jsonls_opts, opts)
 --   end
 --
---   if server.name == "sumneko_lua" then
---     local sumneko_opts = require("user.lsp.settings.sumneko_lua")
---     opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
---   end
+-- if server.name == "sumneko_lua" then
+--   local sumneko_opts = require("user.lsp.settings.sumneko_lua")
+--   opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+-- end
 --
 --   if server.name == "tsserver" or server.name == "eslint" then
 --     local tsserver_opts = require("user.lsp.settings.tsserver")
@@ -34,8 +34,11 @@ local opts = {
 require("nvim-lsp-installer").setup({})
 local lspconfig = require("lspconfig")
 
-lspconfig.sumneko_lua.setup(opts)
-lspconfig.eslint.setup(opts )
+local sumneko_opts = require("user.lsp.settings.sumneko_lua")
+sumneko_opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+lspconfig.sumneko_lua.setup(sumneko_opts)
+
+lspconfig.eslint.setup(opts)
 lspconfig.tsserver.setup(opts, {
   solargraph = {
     diagnostics = false,
@@ -45,4 +48,15 @@ lspconfig.intelephense.setup(opts)
 lspconfig.tailwindcss.setup({
   opts,
   -- cmd = { "yarn", "tailwindcss-language-server", "--stdio" },
+})
+lspconfig.zk.setup(opts)
+
+local schemas = require("user.lsp.settings.jsonls")
+lspconfig.jsonls.setup(opts, {
+  filetypes = { "json", "jsonc" },
+  settings = {
+    json = {
+      schemas = schemas,
+    },
+  },
 })
