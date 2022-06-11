@@ -52,7 +52,7 @@ lspconfig.tailwindcss.setup({
 lspconfig.zk.setup(opts)
 
 local schemas = require("user.lsp.settings.jsonls")
-lspconfig.jsonls.setup(opts, {
+lspconfig["jsonls"].setup(opts, {
   filetypes = { "json", "jsonc" },
   settings = {
     json = {

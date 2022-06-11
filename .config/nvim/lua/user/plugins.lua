@@ -139,6 +139,9 @@ return packer.startup(function(use)
   use("haringsrob/nvim_context_vt")
   use("p00f/nvim-ts-rainbow")
 
+  -- Flutter
+  use({ "akinsho/flutter-tools.nvim", requires = "nvim-lua/plenary.nvim" })
+
   -- Git
   use("lewis6991/gitsigns.nvim")
 
