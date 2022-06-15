@@ -57,6 +57,7 @@ end
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
+vim.cmd([[lang en_US.UTF-8]])
 -- vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
 vim.wo.signcolumn = "yes"
