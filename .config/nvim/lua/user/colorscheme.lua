@@ -5,7 +5,6 @@ try
   highlight Normal ctermbg=NONE guibg=NONE
   highlight LineNr ctermbg=NONE guibg=NONE
   highlight Folded ctermbg=NONE guibg=NONE
-
   highlight NvimContextVt ctermbg=NONE guibg=NONE guifg=#6B6B6B
   highlight LspDiagnosticsDefaultHint ctermbg=NONE guibg=NONE guifg=#BD93F9
   highlight String ctermbg=NONE guibg=NONE guifg=#BD93F9
@@ -16,6 +15,10 @@ try
   highlight DiffDelete guibg=NONE ctermbg=NONE guifg=#FF5555 ctermfg=red
   highlight NonText ctermfg=141 guifg=MediumPurple1 ctermbg=NONE guibg=NONE
   highlight SpecialKey ctermfg=141 guifg=LightSteelBlue ctermbg=NONE guibg=NONE
+
+  highlight WhichKeyFloat ctermbg=NONE
+  highlight WhichKeySeparator ctermbg=NONE
+
 
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
