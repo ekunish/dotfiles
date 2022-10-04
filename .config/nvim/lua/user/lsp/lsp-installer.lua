@@ -50,7 +50,7 @@ lspconfig.tailwindcss.setup({
   -- cmd = { "yarn", "tailwindcss-language-server", "--stdio" },
 })
 lspconfig.zk.setup(opts)
-
+lspconfig.rust_analyzer.setup(opts)
 lspconfig.pylsp.setup(opts)
 
 local schemas = require("user.lsp.settings.jsonls")

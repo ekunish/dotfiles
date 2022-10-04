@@ -1,3 +1,7 @@
+require("notify").setup({
+  background_colour = "#000000",
+})
+
 vim.cmd([[
 try
   colorscheme dracula
@@ -26,6 +30,3 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 ]])
 
-require("notify").setup({
-  background_colour = "#000000",
-})
