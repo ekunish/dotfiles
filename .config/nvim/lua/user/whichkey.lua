@@ -130,36 +130,39 @@ local mappings = {
 
   l = {
     name = "LSP",
-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+    a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
     d = {
-      "<cmd>Telescope diagnostics<cr>",
-      "Document Diagnostics",
+      "<cmd>Lspsaga peek_definition<cr>",
+      "Peek Definition",
     },
     w = {
-      "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Diagnostics",
     },
     f = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
     j = {
-      "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
+      "<cmd>Lspsaga diagnostic_jump_next<CR>",
       "Next Diagnostic",
     },
     k = {
-      "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+      "<cmd>Lspsaga diagnostic_jump_prev<cr>",
       "Prev Diagnostic",
     },
+    K = { "<cmd>Lspsaga hover_doc<cr>", "Hover" },
     g = { "<cmd>Lspsaga lsp_finder<cr>", "Lspsaga finder" },
-    l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+    l = { "<cmd>Lspsaga show_line_diagnostics<cr>", "Line Diagnostic" },
+    c = { "<cmd>Lspsaga show_cursor_diagnostics<cr>", "Cursor Diagnostics" },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+    r = { "<cmd>Lspsaga rename<cr>", "Rename" },
     s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
     },
-    t = { "<cmd>SymbolsOutline<cr>", "SymbolsOutline" },
+    -- t = { "<cmd>SymbolsOutline<cr>", "SymbolsOutline" },
+    o = { "<cmd>LSoutlineToggle<cr>", "Outline" },
   },
   s = {
     name = "Search",

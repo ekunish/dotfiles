@@ -49,9 +49,7 @@ return packer.startup(function(use)
   use("tpope/vim-commentary")
   use("kyazdani42/nvim-web-devicons")
   use("kyazdani42/nvim-tree.lua")
-  use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
   use("moll/vim-bbye")
-  use("nvim-lualine/lualine.nvim")
   use("akinsho/toggleterm.nvim")
   use("ahmedkhalf/project.nvim")
   use("lewis6991/impatient.nvim")
@@ -64,8 +62,12 @@ return packer.startup(function(use)
   use("petertriho/nvim-scrollbar")
   use("kevinhwang91/nvim-hlslens")
 
+  use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
+  use("nvim-lualine/lualine.nvim")
+  use('fgheng/winbar.nvim')
+
   -- Colorschemes
-  use("tiagovla/tokyodark.nvim")
+  -- use("tiagovla/tokyodark.nvim")
   use("dracula/vim")
   -- use("Mofiqul/dracula.nvim")
 
@@ -117,12 +119,14 @@ return packer.startup(function(use)
   use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 
   -- LSP
+  use("williamboman/mason.nvim") -- enable LSP
+  use("williamboman/mason-lspconfig.nvim") -- enable LSP
   use("neovim/nvim-lspconfig") -- enable LSP
-  use("williamboman/nvim-lsp-installer") -- simple to use language server installer
+  -- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
   use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
   use("ray-x/lsp_signature.nvim")
-  use("tami5/lspsaga.nvim")
+  use({"glepnir/lspsaga.nvim", branch = "main"})
   use("j-hui/fidget.nvim")
 
   -- Telescope
