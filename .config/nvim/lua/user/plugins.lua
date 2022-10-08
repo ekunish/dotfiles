@@ -49,7 +49,7 @@ return packer.startup(function(use)
   use("tpope/vim-commentary")
   use("kyazdani42/nvim-web-devicons")
   use("kyazdani42/nvim-tree.lua")
-  use("moll/vim-bbye")
+  -- use("moll/vim-bbye")
   use("akinsho/toggleterm.nvim")
   use("ahmedkhalf/project.nvim")
   use("lewis6991/impatient.nvim")
@@ -59,6 +59,8 @@ return packer.startup(function(use)
   use("folke/which-key.nvim")
   use("simeji/winresizer")
   use("mvllow/modes.nvim")
+
+  -- scrollbar & hlslens
   use("petertriho/nvim-scrollbar")
   use("kevinhwang91/nvim-hlslens")
 
@@ -123,7 +125,7 @@ return packer.startup(function(use)
   use("williamboman/mason-lspconfig.nvim") -- enable LSP
   use("neovim/nvim-lspconfig") -- enable LSP
   -- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
-  use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
+  -- use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
   use("ray-x/lsp_signature.nvim")
   use({"glepnir/lspsaga.nvim", branch = "main"})
@@ -151,9 +153,6 @@ return packer.startup(function(use)
 
   -- browser
   use("tyru/open-browser.vim")
-
-  --faster
-  use("PHSix/faster.nvim")
 
   -- symbols-outline.nvim
   use("simrat39/symbols-outline.nvim")

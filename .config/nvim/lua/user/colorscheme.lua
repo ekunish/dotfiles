@@ -23,6 +23,11 @@ try
   highlight WhichKeyFloat ctermbg=NONE
   highlight WhichKeySeparator ctermbg=NONE
 
+  highlight LspFloatWinNormal ctermbg=NONE guibg=NONE
+  highlight SagaShadow ctermbg=NONE guibg=NONE
+  highlight Float ctermbg=NONE guibg=NONE
+  highlight FloatShadow ctermbg=NONE guibg=NONE
+  highlight FloatShadowThrough ctermbg=NONE guibg=NONE
 
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
