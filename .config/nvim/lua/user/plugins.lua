@@ -154,9 +154,6 @@ return packer.startup(function(use)
   -- browser
   use("tyru/open-browser.vim")
 
-  -- symbols-outline.nvim
-  use("simrat39/symbols-outline.nvim")
-
   -- nvim-notify
   use("rcarriga/nvim-notify")
 

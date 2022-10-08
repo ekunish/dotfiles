@@ -33,5 +33,3 @@ require("user.colorizer")
 require("user.flutter")
 require("user.markdown")
 
--- require("user.winbar")
-require("user.symbols-outlines")
