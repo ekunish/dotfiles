@@ -85,7 +85,7 @@ cmp.setup({
         buffer = "[Buf]",
         treesitter = "[TS]",
         -- cmp_tabnine = "[TN]",
-        omni = "[Omni]",
+        -- omni = "[Omni]",
         copilot = "[CP]",
       })[entry.source.name]
       return vim_item
@@ -116,7 +116,7 @@ cmp.setup({
     { name = "luasnip", group_index = 2, priority = 90 },
     { name = "treesitter", group_index = 2 },
     -- { name = "cmp_tabnine", group_index = 2 },
-    { name = "omni", group_index = 2 },
+    -- { name = "omni", group_index = 2 },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
