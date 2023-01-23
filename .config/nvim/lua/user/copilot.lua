@@ -3,5 +3,5 @@ if not status_ok then
   return
 end
 
-copilot.setup({
-})
+-- copilot.setup({
+-- })
