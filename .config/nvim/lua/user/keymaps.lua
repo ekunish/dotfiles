@@ -26,7 +26,7 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 
-keymap("n", "<Esc><Esc>", ":noh<CR>", opts)
+keymap("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)

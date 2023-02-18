@@ -5,6 +5,15 @@ end
 
 --use default config
 saga.setup({
+  preview = {
+    lines_above = 0,
+    lines_below = 10,
+  },
+  scroll_preview = {
+    scroll_down = "<C-f>",
+    scroll_up = "<C-b>",
+  },
+  request_timeout = 2000,
   ui = {
     -- currently only round theme
     theme = "round",
@@ -12,7 +21,7 @@ saga.setup({
     title = true,
     -- border type can be single,double,rounded,solid,shadow.
     border = "solid",
-    winblend = 10,
+    winblend = 0,
     expand = "",
     collapse = "",
     preview = " ",
@@ -22,7 +31,7 @@ saga.setup({
     outgoing = " ",
     colors = {
       --float window normal background color
-      normal_bg = "#1d1536",
+      normal_bg = "#1c1c19",
       --title background color
       title_bg = "#afd700",
       red = "#e95678",
