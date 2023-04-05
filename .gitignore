@@ -32,6 +32,6 @@
 /.config/NuGet
 /.config/stetic
 /.config/tool_state
-/.config/wezterm
+!/.config/wezterm
 /.config/xbuild
 /.config/yarn
