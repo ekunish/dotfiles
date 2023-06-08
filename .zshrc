@@ -136,7 +136,8 @@ bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
 #################################  NEOVIM  ################################
 export XDG_CONFIG_HOME="$HOME/.config"
 
-
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 #################################  Lunarvim  ################################
 #export PATH="your-dir:$PATH" #$HOME/.local/bin/lvim

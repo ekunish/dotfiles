@@ -33,7 +33,7 @@ end
 
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
-nvim_tree.setup {
+nvim_tree.setup({
   disable_netrw = true,
   hijack_netrw = true,
   -- open_on_setup = false,
@@ -77,27 +77,27 @@ nvim_tree.setup {
     ignore = true,
     timeout = 500,
   },
-  view = {
-    width = 30,
-    -- height = 30,
-    hide_root_folder = false,
-    side = "left",
-    -- auto_resize = true,
-    mappings = {
-      custom_only = false,
-      list = {
-        { key = { "<CR>", "o" }, cb = tree_cb "edit" },
-        { key = "h", cb = tree_cb "close_node" },
-        { key = "v", cb = tree_cb "vsplit" },
-      },
-    },
-    number = false,
-    relativenumber = false,
-  },
-  trash = {
-    cmd = "trash",
-    require_confirm = true,
-  },
+  -- view = {
+  --   width = 30,
+  --   -- height = 30,
+  --   hide_root_folder = false,
+  --   side = "left",
+  --   -- auto_resize = true,
+  --   mappings = {
+  --     custom_only = false,
+  --     list = {
+  --       { key = { "<CR>", "o" }, cb = tree_cb("edit") },
+  --       { key = "h", cb = tree_cb("close_node") },
+  --       { key = "v", cb = tree_cb("vsplit") },
+  --     },
+  --   },
+  --   number = false,
+  --   relativenumber = false,
+  -- },
+  -- trash = {
+  --   cmd = "trash",
+  --   require_confirm = true,
+  -- },
   -- quit_on_open = 0,
   -- git_hl = 1,
   -- disable_window_picker = 0,
@@ -109,4 +109,22 @@ nvim_tree.setup {
   --   folder_arrows = 1,
   --   tree_width = 30,
   -- },
-}
+})
+
+
+vim.api.nvim_create_autocmd("QuitPre", {
+  callback = function()
+    local invalid_win = {}
+    local wins = vim.api.nvim_list_wins()
+    for _, w in ipairs(wins) do
+      local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
+      if bufname:match("NvimTree_") ~= nil then
+        table.insert(invalid_win, w)
+      end
+    end
+    if #invalid_win == #wins - 1 then
+      -- Should quit, so we close all invalid windows.
+      for _, w in ipairs(invalid_win) do vim.api.nvim_win_close(w, true) end
+    end
+  end
+})

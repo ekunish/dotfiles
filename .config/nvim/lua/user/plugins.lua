@@ -94,7 +94,7 @@ return packer.startup(function(use)
   use("dmitmel/cmp-cmdline-history")
 
   -- tab nine
-  use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
+  -- use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
 
   -- wilder
   -- use({ "gelguy/wilder.nvim" })

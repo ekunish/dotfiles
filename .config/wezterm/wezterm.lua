@@ -4,8 +4,9 @@ local dracula = require("dracula")
 return {
   font = wezterm.font("Hack Nerd Font Mono", { weight = "Regular", italic = false }),
   use_ime = true,
+  audible_bell = "Disabled",
   colors = dracula,
-  font_size = 13, -- 18,
+  font_size = 12, -- 18,
   term = "xterm-256color",
   hide_tab_bar_if_only_one_tab = true,
   adjust_window_size_when_changing_font_size = false,

@@ -1,8 +1,7 @@
 local on_attach = function(client, bufnr)
   -- LSPが持つフォーマット機能を無効化する
   -- →例えばtsserverはデフォルトでフォーマット機能を提供しますが、利用したくない場合はコメントアウトを解除してください
-  client.server_capabilities.documentFormattingProvider = false
-
+  -- client.server_capabilities.documentFormattingProvider = false
 end
 
 -- 補完プラグインであるcmp_nvim_lspをLSPと連携させています（後述）
@@ -19,6 +18,9 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers({
   function(server_name) -- default handler (optional)
+    if server_name == "clangd" then
+      capabilities.offsetEncoding = "utf-8"
+    end
     require("lspconfig")[server_name].setup({
       on_attach = on_attach, --keyバインドなどの設定を登録
       capabilities = capabilities, --cmpを連携

@@ -27,6 +27,7 @@ null_ls.setup({
     formatting.stylua.with({
       extra_args = { "--config-path", vim.fn.expand("~/.config/nvim/lua/user/lsp/settings/stylua.toml") },
     }),
+    formatting.clang_format,
     -- diagnostics.eslint,
     -- completion.spell,
   },
