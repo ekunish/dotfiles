@@ -22,8 +22,6 @@
 !/.Brewfile
 
 # 上記に"無視したくないファイル"としてリスト化した中から、さらに"無視したいファイル"を指定
-/.config/.DS_Store
-/.config/nvim/.DS_Store
 /.config/anyenv
 /.config/Autodesk
 /.config/configstore
@@ -35,6 +33,6 @@
 /.config/NuGet
 /.config/stetic
 /.config/tool_state
-!/.config/wezterm
 /.config/xbuild
 /.config/yarn
+"/.config/Unreal Engine/"
