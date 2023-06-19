@@ -22,6 +22,8 @@
 !/Brewfile
 
 # 上記に"無視したくないファイル"としてリスト化した中から、さらに"無視したいファイル"を指定
+/.config/.DS_Store
+/.config/nvim/.DS_Store
 /.config/anyenv
 /.config/Autodesk
 /.config/configstore
@@ -29,6 +31,7 @@
 /.config/flutter
 /.config/gatsby
 /.config/github-copilot
+/.config/Unreal Engine
 /.config/NuGet
 /.config/stetic
 /.config/tool_state

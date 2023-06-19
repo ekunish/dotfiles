@@ -123,13 +123,14 @@ return packer.startup(function(use)
   -- LSP
   use("williamboman/mason.nvim") -- enable LSP
   use("williamboman/mason-lspconfig.nvim") -- enable LSP
+  use("WhoIsSethDaniel/mason-tool-installer.nvim") -- enable LSP
   use("neovim/nvim-lspconfig") -- enable LSP
   -- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
   -- use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
   use("ray-x/lsp_signature.nvim")
   use({"glepnir/lspsaga.nvim", branch = "main"})
-  use("j-hui/fidget.nvim")
+  use({"j-hui/fidget.nvim", tag = 'legacy'})
 
   -- Telescope
   use("nvim-telescope/telescope.nvim")
@@ -150,6 +151,7 @@ return packer.startup(function(use)
 
   -- Git
   use("lewis6991/gitsigns.nvim")
+  use("dinhhuy258/git.nvim")
 
   -- browser
   use("tyru/open-browser.vim")

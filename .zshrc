@@ -1,12 +1,16 @@
+################################# homebrew ##################################
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
 ################################# anyenv ##################################
-# install
-export PATH="~/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
-
-# export PATH="$HOME/.pyenv/bin:$PATH"
-
-export EDITOR=nvim
-export VISUAL="$EDITOR"
+# # install
+# export PATH="~/.anyenv/bin:$PATH"
+# eval "$(anyenv init -)"
+# 
+# # export PATH="$HOME/.pyenv/bin:$PATH"
+# 
+# export EDITOR=nvim
+# export VISUAL="$EDITOR"
 
 #################################  Android SDK  ################################
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
@@ -170,3 +174,5 @@ fi
 #################################  original command  #################################
 ip () {ifconfig | grep 192}
 reload () { exec $SHELL -l}
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
