@@ -1,16 +1,15 @@
 tap "arrow2nd/tap"
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
-tap "homebrew/core"
 tap "homebrew/services"
 tap "universal-ctags/universal-ctags"
 tap "wez/wezterm"
 brew "arduino-cli"
 brew "awk"
 brew "bat"
+brew "black"
 brew "clang-format"
 brew "libunistring"
 brew "deno"
@@ -31,6 +30,7 @@ brew "neovim"
 brew "openjdk"
 brew "pandoc"
 brew "php", restart_service: true
+brew "platformio"
 brew "portaudio"
 brew "ripgrep"
 brew "ripgrep-all"
@@ -72,25 +72,34 @@ cask "google-chrome"
 cask "google-drive"
 cask "google-japanese-ime"
 cask "kicad"
+cask "logi-options-plus"
 cask "loopback"
+cask "mamp"
 cask "messenger"
 cask "microsoft-auto-update"
 cask "microsoft-teams"
+cask "miniforge"
 cask "notion"
 cask "processing"
 cask "slack"
+cask "snapmaker-luban"
 cask "visual-studio-code-insiders"
 cask "vivaldi"
 cask "wezterm"
 cask "zoom"
 cask "zotero"
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Kindle", id: 405399194
 mas "LINE", id: 539883307
+mas "LINE WORKS", id: 6447544433
 mas "MARKETSPEED", id: 946680495
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Outlook", id: 985367838
 mas "Microsoft PowerPoint", id: 462062816
 mas "Microsoft Word", id: 462054704
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 mas "The Unarchiver", id: 425424353
 mas "Xcode", id: 497799835
