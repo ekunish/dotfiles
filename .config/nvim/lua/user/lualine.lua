@@ -117,7 +117,7 @@ local bubbles_theme = {
   normal = {
     a = { fg = colors.black, bg = colors.violet },
     b = { fg = colors.white, bg = colors.grey },
-    c = { fg = colors.black, bg = NONE },
+    c = { fg = colors.black, bg = colors.black },
   },
 
   insert = { a = { fg = colors.white, bg = colors.blue } },

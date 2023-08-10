@@ -66,7 +66,7 @@ return packer.startup(function(use)
 
   use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
   use("nvim-lualine/lualine.nvim")
-  use('fgheng/winbar.nvim')
+  use("fgheng/winbar.nvim")
 
   -- Colorschemes
   -- use("tiagovla/tokyodark.nvim")
@@ -100,22 +100,23 @@ return packer.startup(function(use)
   -- use({ "gelguy/wilder.nvim" })
 
   -- Copilot.vim
-  use("github/copilot.vim")
-  use("hrsh7th/cmp-copilot")
-  -- use({
-  --   "zbirenbaum/copilot.lua",
-  --   event = { "VimEnter" },
-  --   config = function()
-  --     vim.defer_fn(function()
-  --       require("copilot").setup()
-  --     end, 100)
-  --   end,
-  -- })
-  -- use({
-  --   "zbirenbaum/copilot-cmp",
-  --   after = { "copilot.lua", "nvim-cmp" },
-  -- })
-
+  -- use("github/copilot.vim")
+  -- use("hrsh7th/cmp-copilot")
+  use({
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({})
+    end,
+  })
+  use({
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  })
   -- snippets
   use("L3MON4D3/LuaSnip") --snippet engine
   use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
@@ -129,8 +130,7 @@ return packer.startup(function(use)
   -- use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
   use("ray-x/lsp_signature.nvim")
-  use({"glepnir/lspsaga.nvim", branch = "main"})
-  use({"j-hui/fidget.nvim", tag = 'legacy'})
+  use({ "glepnir/lspsaga.nvim", branch = "main" })
 
   -- Telescope
   use("nvim-telescope/telescope.nvim")

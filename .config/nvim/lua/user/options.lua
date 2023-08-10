@@ -39,7 +39,7 @@ local options = {
   -- guifont = "monospace:h17",               -- the font used in graphical neovim applications
   list = true,
   linespace = 0,
-  spelllang = { en, cjk },
+  -- spelllang = { en },
 }
 
 vim.opt.list = true

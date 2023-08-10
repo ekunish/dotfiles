@@ -18,10 +18,10 @@ saga.setup({
     -- currently only round theme
     theme = "round",
     -- this option only work in neovim 0.9
-    title = true,
+    -- title = true,
     -- border type can be single,double,rounded,solid,shadow.
     border = "solid",
-    winblend = 0,
+    winblend = 1.0,
     expand = "",
     collapse = "",
     preview = " ",

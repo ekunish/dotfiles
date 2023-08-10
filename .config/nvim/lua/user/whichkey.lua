@@ -151,7 +151,7 @@ local mappings = {
       "Prev Diagnostic",
     },
     K = { "<cmd>Lspsaga hover_doc<cr>", "Hover" },
-    g = { "<cmd>Lspsaga lsp_finder<cr>", "Lspsaga finder" },
+    g = { "<cmd>Lspsaga finder<cr>", "Lspsaga finder" },
     l = { "<cmd>Lspsaga show_line_diagnostics<cr>", "Line Diagnostic" },
     c = { "<cmd>Lspsaga show_cursor_diagnostics<cr>", "Cursor Diagnostics" },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },

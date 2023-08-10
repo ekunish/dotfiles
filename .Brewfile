@@ -26,6 +26,7 @@ brew "librsvg"
 brew "llvm"
 brew "lua"
 brew "mas"
+brew "tree-sitter"
 brew "neovim"
 brew "openjdk"
 brew "pandoc"
@@ -60,10 +61,12 @@ cask "autodesk-fusion360"
 cask "blender"
 cask "deepl"
 cask "discord"
+cask "docker"
 cask "dropbox"
 cask "epic-games"
 cask "figma"
 cask "flutter"
+cask "font-cica"
 cask "font-hack-nerd-font"
 cask "font-hackgen-nerd"
 cask "font-ibm-plex"
@@ -96,6 +99,7 @@ mas "LINE", id: 539883307
 mas "LINE WORKS", id: 6447544433
 mas "MARKETSPEED", id: 946680495
 mas "Microsoft Excel", id: 462058435
+mas "Microsoft OneNote", id: 784801555
 mas "Microsoft Outlook", id: 985367838
 mas "Microsoft PowerPoint", id: 462062816
 mas "Microsoft Word", id: 462054704
