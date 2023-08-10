@@ -47,8 +47,8 @@ return packer.startup(function(use)
   use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
   -- use("numToStr/Comment.nvim") -- Easily comment stuff
   use("tpope/vim-commentary")
-  use("kyazdani42/nvim-web-devicons")
-  use("kyazdani42/nvim-tree.lua")
+  use("nvim-tree/nvim-web-devicons")
+  use("nvim-tree/nvim-tree.lua")
   -- use("moll/vim-bbye")
   use("akinsho/toggleterm.nvim")
   use("ahmedkhalf/project.nvim")
@@ -64,7 +64,7 @@ return packer.startup(function(use)
   use("petertriho/nvim-scrollbar")
   use("kevinhwang91/nvim-hlslens")
 
-  use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
+  use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
   use("nvim-lualine/lualine.nvim")
   use("fgheng/winbar.nvim")
 

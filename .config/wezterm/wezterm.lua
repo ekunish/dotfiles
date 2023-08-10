@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local dracula = require("dracula")
 
 return {
-  font = wezterm.font("Hack Nerd Font Mono", { weight = "Regular", italic = false }),
+  -- font = wezterm.font("Hack Nerd Font Mono", { weight = "Regular", italic = false }),
   -- font = wezterm.font_with_fallback({
   --   { family = "Cica" },
   --   { family = "Cica", assume_emoji_presentation = true },
