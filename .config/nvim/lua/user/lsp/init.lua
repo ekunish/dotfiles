@@ -1,7 +1,7 @@
 local on_attach = function(client, bufnr)
   -- LSPが持つフォーマット機能を無効化する
   -- →例えばtsserverはデフォルトでフォーマット機能を提供しますが、利用したくない場合はコメントアウトを解除してください
-  -- client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentFormattingProvider = false
 end
 
 -- 補完プラグインであるcmp_nvim_lspをLSPと連携させています（後述）
@@ -27,17 +27,23 @@ require("mason-tool-installer").setup({
 
     "clangd",
     "json-lsp",
-    "prettier",
     "pyright",
     "rust-analyzer",
     "tailwindcss-language-server",
-    "typescript-language-server",
     "yaml-language-server",
     "lua-language-server",
     "vim-language-server",
     "stylua",
     "shellcheck",
     "editorconfig-checker",
+    "arduino-language-server",
+    "docker-compose-language-service",
+    "dockerfile-language-server",
+    "typescript-language-server",
+
+    -- "eslint-lsp",
+    -- "prettier",
+
     -- 'gopls',
     -- 'gofumpt',
     -- 'golines',
