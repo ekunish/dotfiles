@@ -193,3 +193,15 @@ configs.setup({
   },
 })
 
+require("nvim-tree").setup({})
+
+require("indent_blankline").setup({
+  show_current_context = true,
+  show_current_context_start = true,
+})
+
+-- Actually, no setup is required, but
+-- if setup comes after the indent_blankline,
+-- it will try to follow the pattern matching options
+-- used in indent_blankline
+require("treesitter_indent_object").setup()

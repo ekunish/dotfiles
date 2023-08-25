@@ -1,18 +1,3 @@
-local on_attach = function(client, bufnr)
-  -- LSPが持つフォーマット機能を無効化する
-  -- →例えばtsserverはデフォルトでフォーマット機能を提供しますが、利用したくない場合はコメントアウトを解除してください
-  client.server_capabilities.documentFormattingProvider = false
-end
-
--- 補完プラグインであるcmp_nvim_lspをLSPと連携させています（後述）
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-local settings = {
-  Lua = {
-    diagnostics = { globals = { "vim" } },
-  },
-}
-
 require("mason-tool-installer").setup({
 
   -- a list of all tools you want to ensure are installed upon
@@ -39,8 +24,8 @@ require("mason-tool-installer").setup({
     "arduino-language-server",
     "docker-compose-language-service",
     "dockerfile-language-server",
-    "typescript-language-server",
 
+    "typescript-language-server",
     -- "eslint-lsp",
     -- "prettier",
 
@@ -88,18 +73,43 @@ require("mason-tool-installer").setup({
 })
 
 -- この一連の記述で、mason.nvimでインストールしたLanguage Serverが自動的に個別にセットアップされ、利用可能になります
+-- 補完プラグインであるcmp_nvim_lspをLSPと連携させています（後述）
+local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+local default_on_attach = function(client, bufnr) end
+local disable_formatting = function(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = false
+end
+local disable_diagnostics = {
+  ["textDocument/publishDiagnostics"] = function() end,
+}
+local settings = {
+  Lua = {
+    diagnostics = { globals = { "vim" } },
+  },
+}
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers({
   function(server_name) -- default handler (optional)
+    local on_attach = default_on_attach
     if server_name == "clangd" then
       capabilities.offsetEncoding = "utf-8"
     end
-    require("lspconfig")[server_name].setup({
+    lspconfig[server_name].setup({
       on_attach = on_attach, --keyバインドなどの設定を登録
       capabilities = capabilities, --cmpを連携
       settings = settings,
     })
+    if server_name == "tsserver" then
+      lspconfig[server_name].setup({
+        on_attach = disable_formatting,
+        capabilities = capabilities,
+        settings = settings,
+        handlers = disable_diagnostics,
+      })
+    end
   end,
 })
 

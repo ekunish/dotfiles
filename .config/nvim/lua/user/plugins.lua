@@ -42,9 +42,9 @@ packer.init({
 return packer.startup(function(use)
   -- My plugins here
   use("wbthomason/packer.nvim") -- Have packer manage itself
-  use("nvim-lua/popup.nvim")    -- An implementation of the Popup API from vim in Neovim
-  use("nvim-lua/plenary.nvim")  -- Useful lua functions used ny lots of plugins
-  use("windwp/nvim-autopairs")  -- Autopairs, integrates with both cmp and treesitter
+  use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
+  use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
+  use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
   -- use("numToStr/Comment.nvim") -- Easily comment stuff
   use("tpope/vim-commentary")
   use("nvim-tree/nvim-web-devicons")
@@ -53,7 +53,6 @@ return packer.startup(function(use)
   use("akinsho/toggleterm.nvim")
   use("ahmedkhalf/project.nvim")
   use("lewis6991/impatient.nvim")
-  use("lukas-reineke/indent-blankline.nvim")
   use("goolord/alpha-nvim")
   use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
   use("folke/which-key.nvim")
@@ -80,10 +79,10 @@ return packer.startup(function(use)
   use("aserowy/tmux.nvim")
 
   -- cmp plugins
-  use("hrsh7th/nvim-cmp")         -- The completion plugin
-  use("hrsh7th/cmp-buffer")       -- buffer completions
-  use("hrsh7th/cmp-path")         -- path completions
-  use("hrsh7th/cmp-cmdline")      -- cmdline completions
+  use("hrsh7th/nvim-cmp") -- The completion plugin
+  use("hrsh7th/cmp-buffer") -- buffer completions
+  use("hrsh7th/cmp-path") -- path completions
+  use("hrsh7th/cmp-cmdline") -- cmdline completions
   -- use "dmitmel/cmp-cmdline-history" -- cmdline completions
   use("saadparwaiz1/cmp_luasnip") -- snippet completions
   use("hrsh7th/cmp-nvim-lsp")
@@ -119,14 +118,14 @@ return packer.startup(function(use)
   })
 
   -- snippets
-  use("L3MON4D3/LuaSnip")             --snippet engine
+  use("L3MON4D3/LuaSnip") --snippet engine
   use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 
   -- LSP
-  use("williamboman/mason.nvim")                   -- enable LSP
-  use("williamboman/mason-lspconfig.nvim")         -- enable LSP
+  use("williamboman/mason.nvim") -- enable LSP
+  use("williamboman/mason-lspconfig.nvim") -- enable LSP
   use("WhoIsSethDaniel/mason-tool-installer.nvim") -- enable LSP
-  use("neovim/nvim-lspconfig")                     -- enable LSP
+  use("neovim/nvim-lspconfig") -- enable LSP
   -- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
   -- use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use({
@@ -144,9 +143,9 @@ return packer.startup(function(use)
         -- options
         window = {
           relative = "win", -- where to anchor, either "win" or "editor"
-          blend = 0,        -- &winblend for the window
-          zindex = nil,     -- the zindex value for the window
-          border = "none",  -- style of border for the fidget window
+          blend = 0, -- &winblend for the window
+          zindex = nil, -- the zindex value for the window
+          border = "none", -- style of border for the fidget window
         },
       })
     end,
@@ -165,6 +164,8 @@ return packer.startup(function(use)
   use("windwp/nvim-ts-autotag")
   use("haringsrob/nvim_context_vt")
   use("p00f/nvim-ts-rainbow")
+  use("lukas-reineke/indent-blankline.nvim")
+  use("kiyoon/treesitter-indent-object.nvim")
 
   -- Flutter
   use({ "akinsho/flutter-tools.nvim", requires = "nvim-lua/plenary.nvim" })
@@ -201,6 +202,23 @@ return packer.startup(function(use)
       })
     end,
   })
+
+  use("vim-denops/denops.vim")
+  use("vim-denops/denops-helloworld.vim")
+  use("lambdalisue/kensaku.vim")
+  use("lambdalisue/kensaku-command.vim")
+  use("lambdalisue/kensaku-search.vim")
+  -- use({
+  --   "lambdalisue/kensaku-search.vim",
+  --   -- tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+  --   config = function()
+  --     require("kensaku-search").setup({
+  --       -- Configuration here, or leave empty to use defaults
+  --     })
+  --   end,
+  -- })
+
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

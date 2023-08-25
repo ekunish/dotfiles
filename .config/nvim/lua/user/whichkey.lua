@@ -185,6 +185,26 @@ local mappings = {
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
   },
+
+  v = {
+    name = "Visual",
+    A = {
+      "<cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer()<cr>",
+      "select context-aware indent",
+    },
+    a = {
+      "<cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer(true)<cr>",
+      "ensure selecting entire line",
+    },
+    I = {
+      "<cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner()<cr>",
+      "select context-aware indent",
+    },
+    i = {
+      "<cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner(true)<cr>",
+      "ensure selecting entire line",
+    },
+  },
 }
 
 which_key.setup(setup)

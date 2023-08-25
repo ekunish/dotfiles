@@ -32,4 +32,4 @@ require("user.scrollbar")
 require("user.colorizer")
 require("user.flutter")
 require("user.markdown")
-
+require("user.syntax-tree-surfer")

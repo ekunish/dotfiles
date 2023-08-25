@@ -25,7 +25,6 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
-
 keymap("n", "K", "<cmd>Lspsaga hover_doc<cr>", opts)
 
 -- Resize with arrows
@@ -70,3 +69,6 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
+-- kensaku
+vim.keymap.set('c', '<CR>', '<Plug>(kensaku-search-replace)<CR>')
+-- keymap("n", "<CR>", "(kensaku-search-replace)<CR>", opts)
