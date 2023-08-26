@@ -172,7 +172,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #################################  original command  #################################
-ip () {ifconfig | grep 192}
+# ip () {ifconfig | grep 192}
 reload () { exec $SHELL -l}
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
