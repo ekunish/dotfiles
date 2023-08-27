@@ -55,7 +55,13 @@ return packer.startup(function(use)
   use("lewis6991/impatient.nvim")
   use("goolord/alpha-nvim")
   use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
-  use("folke/which-key.nvim")
+  use({
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+  })
   use("simeji/winresizer")
   use("mvllow/modes.nvim")
 
@@ -129,11 +135,18 @@ return packer.startup(function(use)
   -- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
   -- use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use({
-    "jose-elias-alvarez/null-ls.nvim",
+    "henrywallace/null-ls.nvim",
     requires = { "nvim-lua/plenary.nvim" },
   })
   use("ray-x/lsp_signature.nvim")
-  use({ "glepnir/lspsaga.nvim", branch = "main" })
+
+  use({
+    "nvimdev/lspsaga.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require("lspsaga").setup({})
+    end,
+  })
 
   use({
     "j-hui/fidget.nvim",
@@ -165,7 +178,11 @@ return packer.startup(function(use)
   use("haringsrob/nvim_context_vt")
   use("p00f/nvim-ts-rainbow")
   use("lukas-reineke/indent-blankline.nvim")
-  use("kiyoon/treesitter-indent-object.nvim")
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
 
   -- Flutter
   use({ "akinsho/flutter-tools.nvim", requires = "nvim-lua/plenary.nvim" })
@@ -193,15 +210,16 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
-    "kylechui/nvim-surround",
-    -- tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end,
-  })
+  use("echasnovski/mini.surround")
+  -- use({
+  --   "kylechui/nvim-surround",
+  --   tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+  --   config = function()
+  --     require("nvim-surround").setup({
+  --       -- Configuration here, or leave empty to use defaults
+  --     })
+  --   end,
+  -- })
 
   use("vim-denops/denops.vim")
   use("vim-denops/denops-helloworld.vim")
@@ -217,8 +235,6 @@ return packer.startup(function(use)
   --     })
   --   end,
   -- })
-
-
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

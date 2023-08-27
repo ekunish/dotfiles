@@ -114,4 +114,3 @@ require("mason-lspconfig").setup_handlers({
 })
 
 require("user.lsp.null-ls")
-require("user.lsp.lspsaga")
