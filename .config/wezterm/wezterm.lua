@@ -1,5 +1,11 @@
 local wezterm = require("wezterm")
 local dracula = require("dracula")
+local mux = wezterm.mux
+
+wezterm.on("gui-startup", function(cmd)
+  local tab, pane, window = mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+end)
 
 return {
   font = wezterm.font("HackGen Console NF", { weight = "Regular", italic = false }),
