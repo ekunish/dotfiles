@@ -1,7 +1,7 @@
 # Setup fzf
 # ---------
 if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
-  export PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
+    export PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
 fi
 
 # Auto-completion
@@ -21,14 +21,14 @@ export FZF_DEFAULT_OPTS='--preview "bat  --color=always --style=header,grid --li
 
 
 function select-history() {
-BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
-CURSOR=$#BUFFER
+    BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+    CURSOR=$#BUFFER
 
-# FZF_RESULT=$(history | sort -k2 | uniq -f 2 | sort -k1 -n -r | perl -pe 's/^(\s+)?[0-9]+\s+//g' | fzf);
-# BEFORE_CURSOR=${READLINE_LINE:0:$READLINE_POINT};
-# AFTER_CURSOR=${READLINE_LINE:$READLINE_POINT};
-# READLINE_LINE=${BEFORE_CURSOR}${FZF_RESULT}${AFTER_CURSOR};
-# (( READLINE_POINT += ${#FZF_RESULT} ))
+    # FZF_RESULT=$(history | sort -k2 | uniq -f 2 | sort -k1 -n -r | perl -pe 's/^(\s+)?[0-9]+\s+//g' | fzf);
+    # BEFORE_CURSOR=${READLINE_LINE:0:$READLINE_POINT};
+    # AFTER_CURSOR=${READLINE_LINE:$READLINE_POINT};
+    # READLINE_LINE=${BEFORE_CURSOR}${FZF_RESULT}${AFTER_CURSOR};
+    # (( READLINE_POINT += ${#FZF_RESULT} ))
 }
 
 zle -N select-history
@@ -113,17 +113,17 @@ fh() {
 
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
 fkill() {
-  local pid 
+  local pid
   if [ "$UID" != "0" ]; then
     pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
   else
     pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-  fi  
+  fi
 
   if [ "x$pid" != "x" ]
   then
     echo $pid | xargs kill -${1:-9}
-  fi  
+  fi
 }
 
 # zsh; needs setopt re_match_pcre. You can, of course, adapt it to your own shell easily.
@@ -233,43 +233,43 @@ bcp() {
   fi
 }
 
-# Install or open the webpage for the selected application 
+# Install or open the webpage for the selected application
 # using brew cask search as input source
-# and display a info quickview window for the currently marked application 
+# and display a info quickview window for the currently marked application
 install() {
   local token
   token=$(brew search --casks "$1" | fzf-tmux --query="$1" +m --preview 'brew info {}')
 
-  if [ "x$token" != "x" ]                                                                
-  then             
+  if [ "x$token" != "x" ]
+  then
     echo "(I)nstall or open the (h)omepage of $token"
-    read input                             
-    if [ $input = "i" ] || [ $input = "I" ]; then    
-      brew install --cask $token                   
-    fi                                                                                    
-    if [ $input = "h" ] || [ $input = "H" ]; then                                         
-      brew home $token                     
-    fi                                           
-  fi                             
-}                                              
+    read input
+    if [ $input = "i" ] || [ $input = "I" ]; then
+      brew install --cask $token
+    fi
+    if [ $input = "h" ] || [ $input = "H" ]; then
+      brew home $token
+    fi
+  fi
+}
 
-# Uninstall or open the webpage for the selected application 
-# using brew list as input source (all brew cask installed applications) 
+# Uninstall or open the webpage for the selected application
+# using brew list as input source (all brew cask installed applications)
 # and display a info quickview window for the currently marked application
-uninstall() {                                                                     
-  local token                                                                   
+uninstall() {
+  local token
   token=$(brew list --casks | fzf-tmux --query="$1" +m --preview 'brew info {}')
 
-  if [ "x$token" != "x" ]                                                       
-  then                                                                          
-    echo "(U)ninstall or open the (h)omepae of $token"                        
-    read input                                                                
-    if [ $input = "u" ] || [ $input = "U" ]; then                             
-      brew uninstall --cask $token                                          
-    fi                                                                        
-    if [ $input = "h" ] || [ $token = "h" ]; then                             
-      brew home $token                                                      
-    fi                                                                        
+  if [ "x$token" != "x" ]
+  then
+    echo "(U)ninstall or open the (h)omepae of $token"
+    read input
+    if [ $input = "u" ] || [ $input = "U" ]; then
+      brew uninstall --cask $token
+    fi
+    if [ $input = "h" ] || [ $token = "h" ]; then
+      brew home $token
+    fi
   fi
 }
 
@@ -321,4 +321,3 @@ function v() {
     local file
     file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && nvim "${file}" || return 1
 }
-

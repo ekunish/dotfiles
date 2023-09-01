@@ -19,7 +19,7 @@ require("mason-tool-installer").setup({
     "lua-language-server",
     "vim-language-server",
     "stylua",
-    "shellcheck",
+    -- "shellcheck",
     "editorconfig-checker",
     "arduino-language-server",
     "docker-compose-language-service",
@@ -97,11 +97,6 @@ require("mason-lspconfig").setup_handlers({
     if server_name == "clangd" then
       capabilities.offsetEncoding = "utf-8"
     end
-    lspconfig[server_name].setup({
-      on_attach = on_attach, --keyバインドなどの設定を登録
-      capabilities = capabilities, --cmpを連携
-      settings = settings,
-    })
     if server_name == "tsserver" then
       lspconfig[server_name].setup({
         on_attach = disable_formatting,
@@ -110,6 +105,33 @@ require("mason-lspconfig").setup_handlers({
         handlers = disable_diagnostics,
       })
     end
+    if server_name == "bashls" then
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "zsh", "bash", "sh" },
+      })
+    end
+    if server_name == "beautysh" then
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "zsh", "bash", "sh" },
+      })
+    end
+    if server_name == "tailwindcss" then
+      lspconfig[server_name].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "typescriptreact" },
+      })
+    end
+
+    lspconfig[server_name].setup({
+      on_attach = on_attach, --keyバインドなどの設定を登録
+      capabilities = capabilities, --cmpを連携
+      settings = settings,
+    })
   end,
 })
 

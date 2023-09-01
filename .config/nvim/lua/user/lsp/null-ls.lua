@@ -62,5 +62,7 @@ null_ls.setup({
     diagnostics.eslint.with({
       prefer_local = "node_modules/.bin",
     }),
+    formatting.beautysh,
+    null_ls.builtins.diagnostics.editorconfig_checker,
   },
 })

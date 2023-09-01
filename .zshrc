@@ -6,9 +6,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # # install
 # export PATH="~/.anyenv/bin:$PATH"
 # eval "$(anyenv init -)"
-# 
+#
 # # export PATH="$HOME/.pyenv/bin:$PATH"
-# 
+#
 # export EDITOR=nvim
 # export VISUAL="$EDITOR"
 
@@ -21,12 +21,12 @@ alias bundletool="java -jar $HOME/bundletool/bundletool-all-1.10.0.jar"
 
 if [ -e "$HOME/.nodenv" ]
 then
-  export NODENV_ROOT="$HOME/.nodenv"
-  export PATH="$NODENV_ROOT/bin:$PATH"
-  if command -v nodenv 1>/dev/null 2>&1
-  then
-    eval "$(nodenv init - --no-rehash)"
-  fi
+    export NODENV_ROOT="$HOME/.nodenv"
+    export PATH="$NODENV_ROOT/bin:$PATH"
+    if command -v nodenv 1>/dev/null 2>&1
+    then
+        eval "$(nodenv init - --no-rehash)"
+    fi
 fi
 
 eval "$(starship init zsh)"
@@ -118,10 +118,10 @@ zplug "kazhala/dotbare"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
 fi
 
 zplug load
@@ -145,25 +145,25 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 #################################  Lunarvim  ################################
 #export PATH="your-dir:$PATH" #$HOME/.local/bin/lvim
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 alias lvim="~/.local/bin/lvim"
 
 #################################  exa  #################################
 
 if [[ $(command -v exa) ]]; then
-  alias e='exa --icons --git'
-  alias l=e
-  # alias ls=e
-  alias ls='exa -a --icons --git'
-  alias ea='exa -a --icons --git'
-  alias la=ea
-  alias ee='exa -aahl --icons --git'
-  alias ll=ee
-  alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-  alias lt=et
-  alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
-  alias lta=eta
-  alias l='clear && ls'
+    alias e='exa --icons --git'
+    alias l=e
+    # alias ls=e
+    alias ls='exa -a --icons --git'
+    alias ea='exa -a --icons --git'
+    alias la=ea
+    alias ee='exa -aahl --icons --git'
+    alias ll=ee
+    alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+    alias lt=et
+    alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+    alias lta=eta
+    alias l='clear && ls'
 fi
 
 
@@ -173,14 +173,14 @@ fi
 
 #################################  original command  #################################
 # ip () {ifconfig | grep 192}
-reload () { exec $SHELL -l}
+# reload () { exec $SHELL -l}
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/Users/ekunish/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
