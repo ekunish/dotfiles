@@ -96,42 +96,38 @@ require("mason-lspconfig").setup_handlers({
     local on_attach = default_on_attach
     if server_name == "clangd" then
       capabilities.offsetEncoding = "utf-8"
-    end
-    if server_name == "tsserver" then
+    elseif server_name == "tsserver" then
       lspconfig[server_name].setup({
         on_attach = disable_formatting,
         capabilities = capabilities,
         settings = settings,
         handlers = disable_diagnostics,
       })
-    end
-    if server_name == "bashls" then
+    elseif server_name == "bashls" then
       lspconfig[server_name].setup({
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "zsh", "bash", "sh" },
       })
-    end
-    if server_name == "beautysh" then
+    elseif server_name == "beautysh" then
       lspconfig[server_name].setup({
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "zsh", "bash", "sh" },
       })
-    end
-    if server_name == "tailwindcss" then
+    elseif server_name == "tailwindcss" then
       lspconfig[server_name].setup({
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "typescriptreact" },
       })
+    else
+      lspconfig[server_name].setup({
+        on_attach = on_attach, --keyバインドなどの設定を登録
+        capabilities = capabilities, --cmpを連携
+        settings = settings,
+      })
     end
-
-    lspconfig[server_name].setup({
-      on_attach = on_attach, --keyバインドなどの設定を登録
-      capabilities = capabilities, --cmpを連携
-      settings = settings,
-    })
   end,
 })
 
