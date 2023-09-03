@@ -14,7 +14,6 @@ require("mason-tool-installer").setup({
     "json-lsp",
     "pyright",
     "rust-analyzer",
-    "tailwindcss-language-server",
     "yaml-language-server",
     "lua-language-server",
     "vim-language-server",
@@ -26,8 +25,10 @@ require("mason-tool-installer").setup({
     "dockerfile-language-server",
 
     "typescript-language-server",
-    -- "eslint-lsp",
-    -- "prettier",
+    "tailwindcss",
+
+    "eslint-lsp",
+    "prettier",
 
     -- 'gopls',
     -- 'gofumpt',
@@ -100,7 +101,13 @@ require("mason-lspconfig").setup_handlers({
       lspconfig[server_name].setup({
         on_attach = disable_formatting,
         capabilities = capabilities,
-        settings = settings,
+        handlers = disable_diagnostics,
+      })
+    elseif server_name == "tailwindcss" then
+      lspconfig[server_name].setup({
+        on_attach = disable_formatting,
+        capabilities = capabilities,
+        filetypes = { "typescriptreact" },
         handlers = disable_diagnostics,
       })
     elseif server_name == "bashls" then
@@ -114,12 +121,6 @@ require("mason-lspconfig").setup_handlers({
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "zsh", "bash", "sh" },
-      })
-    elseif server_name == "tailwindcss" then
-      lspconfig[server_name].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        filetypes = { "typescriptreact" },
       })
     else
       lspconfig[server_name].setup({

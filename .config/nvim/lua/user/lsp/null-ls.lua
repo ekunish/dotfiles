@@ -7,6 +7,8 @@ end
 local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
+local code_actions = null_ls.builtins.code_actions
+local completions = null_ls.builtins.completion
 -- local completion = null_ls.builtins.completion
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -28,6 +30,7 @@ null_ls.setup({
 
   debug = false,
   sources = {
+    completions.spell,
     formatting.deno_fmt.with({
       condition = function(utils)
         return not (
@@ -60,9 +63,11 @@ null_ls.setup({
       extra_args = { "--config-path", vim.fn.expand("~/.config/nvim/lua/user/lsp/settings/stylua.toml") },
     }),
     formatting.clang_format,
+
     diagnostics.eslint.with({
       prefer_local = "node_modules/.bin",
     }),
+
     formatting.beautysh,
   },
 })
