@@ -50,6 +50,7 @@ null_ls.setup({
           ".prettierrc.json",
           ".prettier.config.js",
           ".prettierrc.json",
+          " .prettierignore",
         })
       end,
       prefer_local = "node_modules/.bin",
@@ -63,6 +64,5 @@ null_ls.setup({
       prefer_local = "node_modules/.bin",
     }),
     formatting.beautysh,
-    null_ls.builtins.diagnostics.editorconfig_checker,
   },
 })
