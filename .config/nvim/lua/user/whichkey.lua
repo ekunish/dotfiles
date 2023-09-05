@@ -155,7 +155,7 @@ local mappings = {
 
   l = {
     name = "LSP",
-    a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
+    a = { "<cmd>Lspsaga code_action<cr>", "Code Action", mode = { "n", "v" } },
     d = {
       "<cmd>Lspsaga peek_definition<cr>",
       "Peek Definition",
@@ -176,7 +176,7 @@ local mappings = {
       "Prev Diagnostic",
     },
     K = { "<cmd>Lspsaga hover_doc<cr>", "Hover" },
-    g = { "<cmd>Lspsaga finder<cr>", "Lspsaga finder" },
+    g = { "<cmd>Lspsaga finder<cr>", "Lspsaga finder", mode = { "n" } },
     l = { "<cmd>Lspsaga show_line_diagnostics<cr>", "Line Diagnostic" },
     c = { "<cmd>Lspsaga show_cursor_diagnostics<cr>", "Cursor Diagnostics" },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },

@@ -144,7 +144,9 @@ return packer.startup(function(use)
     "nvimdev/lspsaga.nvim",
     after = "nvim-lspconfig",
     config = function()
-      require("lspsaga").setup({})
+      require("lspsaga").setup({
+        definition = { edit = "o", vsplit = "s", split = "i" },
+      })
     end,
   })
 

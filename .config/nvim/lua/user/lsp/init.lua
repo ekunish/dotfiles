@@ -107,8 +107,8 @@ require("mason-lspconfig").setup_handlers({
       lspconfig[server_name].setup({
         on_attach = disable_formatting,
         capabilities = capabilities,
-        filetypes = { "typescriptreact" },
-        handlers = disable_diagnostics,
+        filetypes = { "typescriptreact", "css", "html" },
+        -- handlers = disable_diagnostics,
       })
     elseif server_name == "bashls" then
       lspconfig[server_name].setup({
