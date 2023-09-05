@@ -28,10 +28,11 @@ try
   highlight Float ctermbg=NONE guibg=NONE
   highlight FloatShadow ctermbg=NONE guibg=NONE
   highlight FloatShadowThrough ctermbg=NONE guibg=NONE
+  highlight! link FloatBorder Normal
+  highlight! link NormalFloat Normal
 
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
   set background=dark
 endtry
 ]])
-

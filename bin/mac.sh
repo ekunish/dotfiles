@@ -25,7 +25,7 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
 for app in "Dock" \
-	"Finder" \
-	"SystemUIServer"; do
-	killall "${app}" &> /dev/null
+    "Finder" \
+    "SystemUIServer"; do
+    killall "${app}" &> /dev/null
 done

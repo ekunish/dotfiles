@@ -78,6 +78,8 @@ require("mason-tool-installer").setup({
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+require("lspconfig.ui.windows").default_options.border = "rounded"
+
 local default_on_attach = function(client, bufnr) end
 local disable_formatting = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false

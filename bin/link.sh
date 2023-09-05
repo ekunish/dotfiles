@@ -10,14 +10,13 @@ cd $DOTFILES_DIR
 
 # .から始まるファイルやフォルダに対して繰り返す
 for f in .??*; do
-	# シンボリックリンクを作りたくないファイルやフォルダを除外
-	[[ "$f" == ".git" ]] && continue
-	[[ "$f" == ".gitconfig" ]] && continue
-	[[ "$f" == ".gitignore" ]] && continue
-	[[ "$f" == ".DS_Store" ]] && continue
-	[[ "$f" =~ .swp$ ]] && continue
+    # シンボリックリンクを作りたくないファイルやフォルダを除外
+    [[ "$f" == ".git" ]] && continue
+    [[ "$f" == ".gitconfig" ]] && continue
+    [[ "$f" == ".gitignore" ]] && continue
+    [[ "$f" == ".DS_Store" ]] && continue
+    [[ "$f" =~ .swp$ ]] && continue
 
-	# シンボリックリンクを作成
-	ln -snfv ${DOTFILES_DIR}/$f ~
+    # シンボリックリンクを作成
+    ln -snfv ${DOTFILES_DIR}/$f ~
 done
-

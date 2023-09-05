@@ -170,7 +170,7 @@ local schemas = {
 }
 
 local function extend(tab1, tab2)
-  if not(tab2 == nil)then
+  if not (tab2 == nil) then
     for _, value in ipairs(tab2) do
       table.insert(tab1, value)
     end
@@ -190,7 +190,7 @@ local opts = {
     commands = {
       Format = {
         function()
-          vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
+          vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
         end,
       },
     },
