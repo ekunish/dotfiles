@@ -86,7 +86,7 @@ cmp.setup({
         calc = "[Calc]",
         luasnip = "[Snip]",
         buffer = "[Buf]",
-        treesitter = "[TS]",
+        -- treesitter = "[TS]",
         -- cmp_tabnine = "[TN]",
         -- omni = "[Omni]",
         copilot = "[CP]",
@@ -117,7 +117,7 @@ cmp.setup({
     { name = "calc", group_index = 2 },
     { name = "emoji", group_index = 2 },
     { name = "luasnip", group_index = 2, priority = 90 },
-    { name = "treesitter", group_index = 2 },
+    -- { name = "treesitter", group_index = 2 },
     -- { name = "cmp_tabnine", group_index = 2 },
     -- { name = "omni", group_index = 2 },
   },
@@ -145,9 +145,12 @@ cmp.setup.filetype("gitcommit", {
   sources = cmp.config.sources({
     { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
-    { name = "buffer", option = {
-      keyword_pattern = [[\k\+]],
-    } },
+    {
+      name = "buffer",
+      option = {
+        keyword_pattern = [[\k\+]],
+      },
+    },
   }),
 })
 
@@ -155,9 +158,12 @@ cmp.setup.filetype("gitcommit", {
 cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = "buffer", option = {
-      keyword_pattern = [[\k\+]],
-    } },
+    {
+      name = "buffer",
+      option = {
+        keyword_pattern = [[\k\+]],
+      },
+    },
   }),
 })
 

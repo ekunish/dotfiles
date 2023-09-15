@@ -235,6 +235,7 @@ return packer.startup(function(use)
 
   use("vim-denops/denops.vim")
   use("vim-denops/denops-helloworld.vim")
+  use("yuki-yano/fuzzy-motion.vim")
   use("lambdalisue/kensaku.vim")
   use("lambdalisue/kensaku-command.vim")
   use("lambdalisue/kensaku-search.vim")

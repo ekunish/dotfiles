@@ -73,8 +73,6 @@ require("mason-tool-installer").setup({
   debounce_hours = 5, -- at least 5 hours between attempts to install/update
 })
 
--- この一連の記述で、mason.nvimでインストールしたLanguage Serverが自動的に個別にセットアップされ、利用可能になります
--- 補完プラグインであるcmp_nvim_lspをLSPと連携させています（後述）
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -92,6 +90,7 @@ local settings = {
     diagnostics = { globals = { "vim" } },
   },
 }
+
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers({
@@ -124,12 +123,18 @@ require("mason-lspconfig").setup_handlers({
         capabilities = capabilities,
         filetypes = { "zsh", "bash", "sh" },
       })
-    else
+    elseif server_name == "lua_ls" then
       lspconfig[server_name].setup({
         on_attach = on_attach, --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
         settings = settings,
       })
+    else
+      -- lspconfig[server_name].setup({
+      --   on_attach = on_attach, --keyバインドなどの設定を登録
+      --   capabilities = capabilities, --cmpを連携
+      --   settings = settings,
+      -- })
     end
   end,
 })

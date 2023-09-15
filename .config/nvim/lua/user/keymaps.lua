@@ -44,6 +44,8 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- kensaku
 vim.keymap.set("c", "<CR>", "<Plug>(kensaku-search-replace)<CR>")
+vim.keymap.set("n", "f", "<cmd>FuzzyMotion<CR>")
+vim.cmd("let g:fuzzy_motion_matchers = ['kensaku', 'fzf']")
 -- keymap("n", "<CR>", "(kensaku-search-replace)<CR>", opts)
 
 -- tree-sitter
