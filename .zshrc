@@ -17,20 +17,6 @@ export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
 alias bundletool="java -jar $HOME/bundletool/bundletool-all-1.10.0.jar"
 
-################################# starship ################################
-
-if [ -e "$HOME/.nodenv" ]
-then
-    export NODENV_ROOT="$HOME/.nodenv"
-    export PATH="$NODENV_ROOT/bin:$PATH"
-    if command -v nodenv 1>/dev/null 2>&1
-    then
-        eval "$(nodenv init - --no-rehash)"
-    fi
-fi
-
-eval "$(starship init zsh)"
-
 
 ################################# conda ##################################
 
@@ -143,9 +129,10 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
+export PATH="$HOME/.local/bin:$PATH"
 #################################  Lunarvim  ################################
 #export PATH="your-dir:$PATH" #$HOME/.local/bin/lvim
-export PATH="$HOME/.local/bin:$PATH"
+# export PATH="$HOME/.local/bin:$PATH"
 alias lvim="~/.local/bin/lvim"
 
 #################################  exa  #################################
@@ -184,3 +171,20 @@ case ":$PATH:" in
     *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+################################# starship ################################
+
+if [ -e "$HOME/.nodenv" ]
+then
+    export NODENV_ROOT="$HOME/.nodenv"
+    export PATH="$NODENV_ROOT/bin:$PATH"
+    if command -v nodenv 1>/dev/null 2>&1
+    then
+        eval "$(nodenv init - --no-rehash)"
+    fi
+fi
+
+eval "$(starship init zsh)"
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"

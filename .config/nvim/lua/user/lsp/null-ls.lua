@@ -68,6 +68,10 @@ null_ls.setup({
       prefer_local = "node_modules/.bin",
     }),
 
+    -- diagnostics.glsl_analyzer,
+    -- formatting.glsl_analyzer,
+    -- completions.glsl_analyzer,
+
     formatting.beautysh,
   },
 })

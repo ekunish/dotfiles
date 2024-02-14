@@ -31,6 +31,7 @@ end
 
 -- Have packer use a popup window
 packer.init({
+  max_jobs = 20,
   display = {
     open_fn = function()
       return require("packer.util").float({ border = "rounded" })
@@ -97,6 +98,8 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-emoji")
   use("hrsh7th/cmp-omni")
   use("dmitmel/cmp-cmdline-history")
+  use({ "vim-skk/skkeleton", requires = { "vim-denops/denops.vim" } })
+  use({ "rinx/cmp-skkeleton", after = { "nvim-cmp", "skkeleton" } })
 
   -- tab nine
   -- use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
@@ -188,7 +191,6 @@ return packer.startup(function(use)
   use("windwp/nvim-ts-autotag")
   use("haringsrob/nvim_context_vt")
   use("p00f/nvim-ts-rainbow")
-  use("lukas-reineke/indent-blankline.nvim")
   use({
     "nvim-treesitter/nvim-treesitter-textobjects",
     after = "nvim-treesitter",
@@ -213,6 +215,7 @@ return packer.startup(function(use)
 
   -- quickrun
   use({ "thinca/vim-quickrun" })
+  use({ "is0n/jaq-nvim" })
 
   -- markdown preview
   use({

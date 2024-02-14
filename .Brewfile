@@ -33,6 +33,7 @@ brew "jq"
 brew "llvm"
 brew "lua"
 brew "mas"
+brew "mkvtoolnix"
 brew "tree-sitter"
 brew "neovim"
 brew "openjdk"
@@ -92,6 +93,7 @@ cask "font-plemol-jp-nf"
 cask "google-chrome"
 cask "google-drive"
 cask "google-japanese-ime"
+cask "handbrake"
 cask "kicad"
 cask "loopback"
 cask "mamp"
@@ -101,19 +103,20 @@ cask "microsoft-teams"
 cask "miniforge"
 cask "notion"
 cask "postman"
-cask "processing"
+cask "skype"
 cask "slack"
 cask "snapmaker-luban"
 cask "visual-studio-code-insiders"
 cask "vivaldi"
 cask "vpn-by-google-one"
+cask "warp"
 cask "wezterm"
 cask "zoom"
 cask "zotero"
 mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
-mas "Kindle", id: 405399194
+mas "Kindle", id: 302584613
 mas "LINE", id: 539883307
 mas "LINE WORKS", id: 6447544433
 mas "MARKETSPEED", id: 946680495

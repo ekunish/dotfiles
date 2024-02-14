@@ -74,6 +74,8 @@ require("mason-tool-installer").setup({
 })
 
 local lspconfig = require("lspconfig")
+lspconfig.glsl_analyzer.setup({})
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
@@ -128,6 +130,18 @@ require("mason-lspconfig").setup_handlers({
         on_attach = on_attach, --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
         settings = settings,
+      })
+    elseif server_name == "glsl_analyzer" then
+      lspconfig[server_name].setup({
+        on_attach = on_attach, --keyバインドなどの設定を登録
+        capabilities = capabilities, --cmpを連携
+        filetypes = { "glsl" },
+      })
+    elseif server_name == "pyright" then
+      lspconfig[server_name].setup({
+        on_attach = on_attach, --keyバインドなどの設定を登録
+        capabilities = capabilities, --cmpを連携
+        filetypes = { "python" },
       })
     else
       -- lspconfig[server_name].setup({
