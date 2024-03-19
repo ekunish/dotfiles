@@ -53,7 +53,6 @@ return packer.startup(function(use)
   -- use("moll/vim-bbye")
   use("akinsho/toggleterm.nvim")
   use("ahmedkhalf/project.nvim")
-  use("lewis6991/impatient.nvim")
   use("goolord/alpha-nvim")
   use("antoinemadec/FixCursorHold.nvim") -- This is needed to fix lsp doc highlight
   use({
@@ -75,12 +74,7 @@ return packer.startup(function(use)
   use("fgheng/winbar.nvim")
 
   -- Colorschemes
-  -- use("tiagovla/tokyodark.nvim")
   use("dracula/vim")
-  -- use("Mofiqul/dracula.nvim")
-
-  -- Galaxyline
-  -- use"NTBBloodbath/galaxyline.nvim"
 
   -- tmux
   use("aserowy/tmux.nvim")
@@ -90,7 +84,6 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-buffer") -- buffer completions
   use("hrsh7th/cmp-path") -- path completions
   use("hrsh7th/cmp-cmdline") -- cmdline completions
-  -- use "dmitmel/cmp-cmdline-history" -- cmdline completions
   use("saadparwaiz1/cmp_luasnip") -- snippet completions
   use("hrsh7th/cmp-nvim-lsp")
   use("ray-x/cmp-treesitter")
@@ -101,15 +94,7 @@ return packer.startup(function(use)
   use({ "vim-skk/skkeleton", requires = { "vim-denops/denops.vim" } })
   use({ "rinx/cmp-skkeleton", after = { "nvim-cmp", "skkeleton" } })
 
-  -- tab nine
-  -- use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
-
-  -- wilder
-  -- use({ "gelguy/wilder.nvim" })
-
   -- Copilot.vim
-  -- use("github/copilot.vim")
-  -- use("hrsh7th/cmp-copilot")
   use({
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -135,8 +120,6 @@ return packer.startup(function(use)
   use("williamboman/mason-lspconfig.nvim") -- enable LSP
   use("WhoIsSethDaniel/mason-tool-installer.nvim") -- enable LSP
   use("neovim/nvim-lspconfig") -- enable LSP
-  -- use("williamboman/nvim-lsp-installer") -- simple to use language server installer
-  -- use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
   use({
     "henrywallace/null-ls.nvim",
     requires = { "nvim-lua/plenary.nvim" },
@@ -226,15 +209,6 @@ return packer.startup(function(use)
   })
 
   use("echasnovski/mini.surround")
-  -- use({
-  --   "kylechui/nvim-surround",
-  --   tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-  --   config = function()
-  --     require("nvim-surround").setup({
-  --       -- Configuration here, or leave empty to use defaults
-  --     })
-  --   end,
-  -- })
 
   use("vim-denops/denops.vim")
   use("vim-denops/denops-helloworld.vim")
@@ -242,15 +216,6 @@ return packer.startup(function(use)
   use("lambdalisue/kensaku.vim")
   use("lambdalisue/kensaku-command.vim")
   use("lambdalisue/kensaku-search.vim")
-  -- use({
-  --   "lambdalisue/kensaku-search.vim",
-  --   -- tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-  --   config = function()
-  --     require("kensaku-search").setup({
-  --       -- Configuration here, or leave empty to use defaults
-  --     })
-  --   end,
-  -- })
   use({
     "jedrzejboczar/possession.nvim",
     requires = { "nvim-lua/plenary.nvim" },

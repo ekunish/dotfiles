@@ -57,3 +57,9 @@ vim.keymap.set({ "x", "o" }, "aI", "<Cmd>lua require'treesitter_indent_object.te
 vim.keymap.set({ "x", "o" }, "ii", "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner()<CR>")
 -- select entire inner range (including if, else, etc.)
 vim.keymap.set({ "x", "o" }, "iI", "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner(true)<CR>")
+
+-- swap lines
+vim.keymap.set("n", "<M-j>", "<Cmd>move .+1<CR>==")
+vim.keymap.set("x", "<M-j>", ":move '>+1<CR>gv=gv")
+vim.keymap.set("n", "<M-k>", "<Cmd>move .-2<CR>==")
+vim.keymap.set("x", "<M-k>", ":move '<-2<CR>gv=gv")

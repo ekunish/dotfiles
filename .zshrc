@@ -188,3 +188,5 @@ eval "$(starship init zsh)"
 
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+export PATH="/Applications/MATLAB_R2023a.app/bin:$PATH"

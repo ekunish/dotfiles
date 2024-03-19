@@ -30,6 +30,8 @@ require("mason-tool-installer").setup({
     "eslint-lsp",
     "prettier",
 
+    "matlab_ls",
+
     -- 'gopls',
     -- 'gofumpt',
     -- 'golines',
@@ -87,11 +89,6 @@ end
 local disable_diagnostics = {
   ["textDocument/publishDiagnostics"] = function() end,
 }
-local settings = {
-  Lua = {
-    diagnostics = { globals = { "vim" } },
-  },
-}
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -111,7 +108,6 @@ require("mason-lspconfig").setup_handlers({
         on_attach = disable_formatting,
         capabilities = capabilities,
         filetypes = { "typescriptreact", "css", "html" },
-        -- handlers = disable_diagnostics,
       })
     elseif server_name == "bashls" then
       lspconfig[server_name].setup({
@@ -129,7 +125,11 @@ require("mason-lspconfig").setup_handlers({
       lspconfig[server_name].setup({
         on_attach = on_attach, --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
-        settings = settings,
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+          },
+        },
       })
     elseif server_name == "glsl_analyzer" then
       lspconfig[server_name].setup({
@@ -138,17 +138,26 @@ require("mason-lspconfig").setup_handlers({
         filetypes = { "glsl" },
       })
     elseif server_name == "pyright" then
+      capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
       lspconfig[server_name].setup({
         on_attach = on_attach, --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
         filetypes = { "python" },
       })
+    elseif server_name == "matlab_ls" then
+      lspconfig[server_name].setup({
+        on_attach = on_attach, --keyバインドなどの設定を登録
+        capabilities = capabilities, --cmpを連携
+        filetypes = { "matlab" },
+        -- single_file_support = true,
+      })
     else
-      -- lspconfig[server_name].setup({
-      --   on_attach = on_attach, --keyバインドなどの設定を登録
-      --   capabilities = capabilities, --cmpを連携
-      --   settings = settings,
-      -- })
+      lspconfig[server_name].setup({
+        on_attach = on_attach, --keyバインドなどの設定を登録
+        capabilities = capabilities, --cmpを連携
+        -- settings = settings,
+      })
     end
   end,
 })

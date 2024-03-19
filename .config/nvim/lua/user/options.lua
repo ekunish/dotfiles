@@ -65,3 +65,21 @@ vim.cmd([[lang en_US.UTF-8]])
 -- vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
 vim.wo.signcolumn = "yes"
+
+-- vim.cmd("let g:python3_host_prog = '/opt/homebrew/Caskroom/miniforge/base/bin/python'")
+
+-- local function isempty(s)
+--   return s == nil or s == ""
+-- end
+-- local function use_if_defined(val, fallback)
+--   return val ~= nil and val or fallback
+-- end
+
+-- local conda_prefix = os.getenv("CONDA_PREFIX")
+-- if not isempty(conda_prefix) then
+--   vim.g.python_host_prog = use_if_defined(vim.g.python_host_prog, conda_prefix .. "/bin/python")
+--   vim.g.python3_host_prog = use_if_defined(vim.g.python3_host_prog, conda_prefix .. "/bin/python")
+-- else
+--   vim.g.python_host_prog = use_if_defined(vim.g.python_host_prog, "python")
+--   vim.g.python3_host_prog = use_if_defined(vim.g.python3_host_prog, "python3")
+-- end
