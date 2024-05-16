@@ -157,6 +157,7 @@ fi
 #################################  fzf  #################################
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
 
 #################################  original command  #################################
 # ip () {ifconfig | grep 192}
@@ -190,3 +191,17 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 export PATH="/Applications/MATLAB_R2023a.app/bin:$PATH"
+
+
+################# google cloud-cli ############################
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+export ZONE="asia-southeast1-a"
+export INSTANCE="mlpre-login-mujor9d1-001"            # ログインノードのインスタンス名
+export PROJECT="geniac-pre"                        # GCPプロジェクト名
+export COMPUTE_INSTANCE="mlpre-g2-ghpc-3"  # チームに割り当てられた計算ノード名
+
+
+################# llvm  ############################
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"

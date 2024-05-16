@@ -46,11 +46,9 @@ return packer.startup(function(use)
   use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
   use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
   use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-  -- use("numToStr/Comment.nvim") -- Easily comment stuff
   use("tpope/vim-commentary")
   use("nvim-tree/nvim-web-devicons")
   use("nvim-tree/nvim-tree.lua")
-  -- use("moll/vim-bbye")
   use("akinsho/toggleterm.nvim")
   use("ahmedkhalf/project.nvim")
   use("goolord/alpha-nvim")
@@ -172,7 +170,7 @@ return packer.startup(function(use)
   })
   use("JoosepAlviste/nvim-ts-context-commentstring")
   use("windwp/nvim-ts-autotag")
-  use("haringsrob/nvim_context_vt")
+  use("haringsrob/nvim_context_vt") -- display a virtual text
   use("p00f/nvim-ts-rainbow")
   use({
     "nvim-treesitter/nvim-treesitter-textobjects",
