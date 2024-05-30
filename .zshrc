@@ -205,3 +205,8 @@ export COMPUTE_INSTANCE="mlpre-g2-ghpc-3"  # チームに割り当てられた�
 ################# llvm  ############################
 export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
+
+################ poetry ############################
+fpath+=~/.zfunc
+autoload -Uz compinit && compinit

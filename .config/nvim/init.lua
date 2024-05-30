@@ -1,33 +1,19 @@
-require("user.options")
-require("user.keymaps")
-require("user.autocommands")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
 
-require("user.plugins")
+local opts = {}
 
-require("user.colorscheme")
-require("user.cmp")
-
-require("user.lsp")
-require("user.lsp.lsp_signature")
-
-require("user.telescope")
-require("user.treesitter")
-require("user.autopairs")
-require("user.git")
-require("user.gitsigns")
-require("user.nvim-tree")
-require("user.bufferline")
-require("user.lualine")
-require("user.toggleterm")
-require("user.project")
-require("user.indentline")
-require("user.alpha")
-require("user.whichkey")
-require("user.tmux")
-require("user.nvim_context_vt")
-require("user.scrollbar")
-require("user.colorizer")
-require("user.flutter")
-require("user.markdown")
-require("user.syntax-tree-surfer")
-require("user.possession")
+vim.g.mapleader = " "
+require("lazy").setup("plugins")
+require("options")
+require("keymaps")

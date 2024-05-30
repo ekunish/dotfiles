@@ -30,48 +30,49 @@ null_ls.setup({
 
   debug = false,
   sources = {
+    -- require("none-ls.builtins.diagnostics.eslint"),
     completions.spell,
-    formatting.deno_fmt.with({
-      condition = function(utils)
-        return not (
-          utils.has_file({
-            ".prettierrc",
-            ".prettierrc.js",
-            ".prettierrc.json",
-            ".prettier.config.js",
-            "deno.json",
-            "deno.jsonc",
-          })
-        )
-      end,
-    }),
-    formatting.prettier.with({
-      condition = function(utils)
-        return utils.has_file({
-          ".prettierrc",
-          ".prettierrc.js",
-          ".prettierrc.json",
-          ".prettier.config.js",
-          ".prettierrc.json",
-          " .prettierignore",
-        })
-      end,
-      prefer_local = "node_modules/.bin",
-    }),
-    formatting.black.with({ extra_args = { "--fast" } }),
-    formatting.stylua.with({
-      extra_args = { "--config-path", vim.fn.expand("~/.config/nvim/lua/user/lsp/settings/stylua.toml") },
-    }),
-    formatting.clang_format,
+    -- formatting.deno_fmt.with({
+    --   condition = function(utils)
+    --     return not (
+    --       utils.has_file({
+    --         ".prettierrc",
+    --         ".prettierrc.js",
+    --         ".prettierrc.json",
+    --         ".prettier.config.js",
+    --         "deno.json",
+    --         "deno.jsonc",
+    --       })
+    --     )
+    --   end,
+    -- }),
+    -- formatting.prettier.with({
+    --   condition = function(utils)
+    --     return utils.has_file({
+    --       ".prettierrc",
+    --       ".prettierrc.js",
+    --       ".prettierrc.json",
+    --       ".prettier.config.js",
+    --       ".prettierrc.json",
+    --       " .prettierignore",
+    --     })
+    --   end,
+    --   prefer_local = "node_modules/.bin",
+    -- }),
+    -- formatting.black.with({ extra_args = { "--fast" } }),
+    -- formatting.stylua.with({
+    --   extra_args = { "--config-path", vim.fn.expand("~/.config/nvim/lua/user/lsp/settings/stylua.toml") },
+    -- }),
+    -- formatting.clang_format,
 
-    diagnostics.eslint.with({
-      prefer_local = "node_modules/.bin",
-    }),
+    -- diagnostics.eslint.with({
+    --   prefer_local = "node_modules/.bin",
+    -- }),
 
     -- diagnostics.glsl_analyzer,
     -- formatting.glsl_analyzer,
     -- completions.glsl_analyzer,
 
-    formatting.beautysh,
+    -- formatting.beautysh,
   },
 })

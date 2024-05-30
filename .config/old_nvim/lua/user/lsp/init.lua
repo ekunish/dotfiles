@@ -24,10 +24,10 @@ require("mason-tool-installer").setup({
     "docker-compose-language-service",
     "dockerfile-language-server",
 
-    "typescript-language-server",
+    -- "typescript-language-server",
     "tailwindcss",
 
-    "eslint-lsp",
+    -- "eslint-lsp",
     "prettier",
 
     "matlab_ls",
@@ -123,7 +123,7 @@ require("mason-lspconfig").setup_handlers({
       })
     elseif server_name == "lua_ls" then
       lspconfig[server_name].setup({
-        on_attach = on_attach, --keyバインドなどの設定を登録
+        on_attach = on_attach,       --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
         settings = {
           Lua = {
@@ -133,7 +133,7 @@ require("mason-lspconfig").setup_handlers({
       })
     elseif server_name == "glsl_analyzer" then
       lspconfig[server_name].setup({
-        on_attach = on_attach, --keyバインドなどの設定を登録
+        on_attach = on_attach,       --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
         filetypes = { "glsl" },
       })
@@ -141,23 +141,23 @@ require("mason-lspconfig").setup_handlers({
       capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
       lspconfig[server_name].setup({
-        on_attach = on_attach, --keyバインドなどの設定を登録
+        on_attach = on_attach,       --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
         filetypes = { "python" },
       })
     elseif server_name == "matlab_ls" then
       lspconfig[server_name].setup({
-        on_attach = on_attach, --keyバインドなどの設定を登録
+        on_attach = on_attach,       --keyバインドなどの設定を登録
         capabilities = capabilities, --cmpを連携
         filetypes = { "matlab" },
         -- single_file_support = true,
       })
-    else
-      lspconfig[server_name].setup({
-        on_attach = on_attach, --keyバインドなどの設定を登録
-        capabilities = capabilities, --cmpを連携
-        -- settings = settings,
-      })
+      -- else
+      --   lspconfig[server_name].setup({
+      --     on_attach = on_attach,       --keyバインドなどの設定を登録
+      --     capabilities = capabilities, --cmpを連携
+      --     -- settings = settings,
+      --   })
     end
   end,
 })
