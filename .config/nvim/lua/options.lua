@@ -13,7 +13,7 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set showtabline=4
-set cmdheight=0
+set cmdheight=1
 set noswapfile
 set undofile
 set nowrap

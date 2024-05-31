@@ -1,4 +1,3 @@
-
 local wk = require("which-key")
 -- As an example, we will create the following mappings:
 --  * <leader>ff find files
@@ -11,9 +10,9 @@ local wk = require("which-key")
 
 wk.register({
     f = {
-        name = "file",                                            -- optional group name
-        f = { "<cmd>Telescope find_files<cr>", "Find File" },     -- create a binding with label
-        F = { "<cmd>Telescope live_grep<cr>", "Live Grep" },      -- create a binding with label
+        name = "file",                                             -- optional group name
+        f = { "<cmd>Telescope find_files<cr>", "Find File" },      -- create a binding with label
+        F = { "<cmd>Telescope live_grep<cr>", "Live Grep" },       -- create a binding with label
         r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" }, -- additional options for creating the keymap
         -- n = { "New File" },                           -- just a label. don't create any mapping
         -- e = "Edit File",                              -- same as above
@@ -35,11 +34,19 @@ wk.register({
         x = { vim.lsp.stop_client(vim.lsp.get_active_clients), "Stop LSP" },
         -- ["1"] = "which_key_ignore",
     },
-    c = { "<cmd>Neotree toggle<cr><cmd>bd<cr><cmd>Neotree toggle<cr><cmd>TmuxNavigateRight<cr>", "Close Buffer" },
+    c = {
+        name = "Copilot",
+        a = {"<cmd>CopilotChat<cr>", "Open - CopilotChat"},
+        b = {"<cmd>CopilotChatBuffer<cr>", "File - CopilotChat"},
+        y = {"<cmd>CopilotChatYanked<cr>", "Yanked - CopilotChat"},
+    },
     h = { "<cmd>noh<cr>", "Clear Highlight" },
+    t = { "<cmd>Neotree toggle<cr>", "Neotree Toggle" },
+    m = { "<cmd>Mason<cr>", "Mason" },
+    p = { "<cmd>Lazy<cr>", "Lazy" },
 }, { prefix = "<leader>" })
 
-vim.api.nvim_set_keymap("i", "<S-Tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+-- vim.api.nvim_set_keymap("i", "<Tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 vim.keymap.set("n", "<S-l>", "<CMD>BufferLineCycleNext<CR>")
 vim.keymap.set("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>")
 vim.keymap.set('n', '<C-t>', ':Neotree toggle<CR>', {})
