@@ -1,8 +1,10 @@
 return {
     {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.6',
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.6",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
         config = function()
             local icons = require("icons")
             local actions = require("telescope.actions")
@@ -44,22 +46,16 @@ return {
                     },
                 },
                 pickers = {
-                    live_grep = {
-                        theme = "dropdown",
-                    },
+                    live_grep = {},
 
-                    grep_string = {
-                        theme = "dropdown",
-                    },
+                    grep_string = {},
 
                     find_files = {
-                        theme = "dropdown",
-                        previewer = false,
+                        previewer = true,
                     },
 
                     buffers = {
-                        theme = "dropdown",
-                        previewer = false,
+                        previewer = true,
                         initial_mode = "normal",
                         mappings = {
                             i = {
@@ -81,26 +77,33 @@ return {
                     },
 
                     lsp_references = {
-                        theme = "dropdown",
                         initial_mode = "normal",
                     },
 
                     lsp_definitions = {
-                        theme = "dropdown",
                         initial_mode = "normal",
                     },
 
                     lsp_declarations = {
-                        theme = "dropdown",
                         initial_mode = "normal",
                     },
 
                     lsp_implementations = {
-                        theme = "dropdown",
                         initial_mode = "normal",
                     },
                 },
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown({}),
+                    },
+                },
             })
-        end
-    }
+        end,
+    },
+    {
+        "nvim-telescope/telescope-ui-select.nvim",
+        config = function()
+            require("telescope").load_extension("ui-select")
+        end,
+    },
 }

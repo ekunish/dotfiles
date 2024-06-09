@@ -1,19 +1,19 @@
 return {
-    { 'hrsh7th/nvim-cmp',                     event = 'InsertEnter' },
-    { "hrsh7th/cmp-nvim-lsp",                 event = 'InsertEnter' },
-    { "hrsh7th/cmp-nvim-lua",                 event = 'InsertEnter' },
-    { "hrsh7th/cmp-emoji",                    event = 'InsertEnter' },
-    { 'hrsh7th/cmp-nvim-lsp',                 event = 'InsertEnter' },
-    { 'hrsh7th/cmp-buffer',                   event = 'InsertEnter' },
-    { 'hrsh7th/cmp-path',                     event = 'InsertEnter' },
+    { "hrsh7th/nvim-cmp",                     event = "InsertEnter" },
+    { "hrsh7th/cmp-nvim-lsp",                 event = "InsertEnter" },
+    { "hrsh7th/cmp-nvim-lua",                 event = "InsertEnter" },
+    { "hrsh7th/cmp-emoji",                    event = "InsertEnter" },
+    { "hrsh7th/cmp-nvim-lsp",                 event = "InsertEnter" },
+    { "hrsh7th/cmp-buffer",                   event = "InsertEnter" },
+    { "hrsh7th/cmp-path",                     event = "InsertEnter" },
     -- { 'hrsh7th/cmp-copilot',                  event = 'InsertEnter' },
-    { "zbirenbaum/copilot-cmp",               lazy = false},
-    { 'hrsh7th/cmp-cmdline',                  event = 'ModeChanged' },
-    { 'hrsh7th/cmp-nvim-lsp-signature-help',  event = 'InsertEnter' },
-    { 'hrsh7th/cmp-nvim-lsp-document-symbol', event = 'InsertEnter' },
-    { 'hrsh7th/cmp-calc',                     event = 'InsertEnter' },
-    { 'onsails/lspkind.nvim',                 event = 'InsertEnter' },
-    { 'rafamadriz/friendly-snippets',         event = 'InsertEnter' },
+    { "zbirenbaum/copilot-cmp",               lazy = false },
+    { "hrsh7th/cmp-cmdline",                  event = "ModeChanged" },
+    { "hrsh7th/cmp-nvim-lsp-signature-help",  event = "InsertEnter" },
+    { "hrsh7th/cmp-nvim-lsp-document-symbol", event = "InsertEnter" },
+    { "hrsh7th/cmp-calc",                     event = "InsertEnter" },
+    { "onsails/lspkind.nvim",                 event = "InsertEnter" },
+    { "rafamadriz/friendly-snippets",         event = "InsertEnter" },
     {
         "L3MON4D3/LuaSnip",
         dependencies = {
@@ -26,13 +26,13 @@ return {
         config = function()
             local cmp = require("cmp")
             local luasnip = require("luasnip")
-            local lspkind = require('lspkind')
+            local lspkind = require("lspkind")
             require("luasnip.loaders.from_vscode").lazy_load()
 
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0 and
-                    vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+                return col ~= 0
+                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
             end
 
             local icons = require("icons")
@@ -85,10 +85,12 @@ return {
                             nvim_lsp = "",
                             nvim_lua = "",
                             luasnip = "",
-                            buffer = "",
+                            nvim_lsp_signature_help = "",
                             path = "",
                             emoji = "",
+                            calc = "",
                             copilot = "",
+                            buffer = "",
                         })[entry.source.name]
 
                         if entry.source.name == "emoji" then
@@ -96,15 +98,9 @@ return {
                             vim_item.kind_hl_group = "CmpItemKindEmoji"
                         end
 
-                        if entry.source.name == "cmp_tabnine" then
-                            vim_item.kind = icons.misc.Robot
-                            vim_item.kind_hl_group = "CmpItemKindTabnine"
-                        end
-
                         return vim_item
                     end,
                 },
-
 
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
@@ -113,45 +109,44 @@ return {
                     { name = "luasnip" }, -- For luasnip users.
                     -- { name = 'ultisnips' }, -- For ultisnips users.
                     -- { name = 'snippy' }, -- For snippy users.
-                    { name = 'nvim_lsp_signature_help' },
-                    { name = 'path' },  -- For path source.
-                    { name = 'emoji' }, -- For path source.
-                    { name = 'calc' },
-                    { name = 'copilot'},
+                    { name = "nvim_lsp_signature_help" },
+                    { name = "path" }, -- For path source.
+                    { name = "emoji" }, -- For path source.
+                    { name = "calc" },
+                    { name = "copilot" },
                     { name = "buffer",                 keyword_length = 2 },
+                    { name = "copilot-chat" },
                 }),
 
                 window = {
                     -- completion = cmp.config.window.bordered(),
                     completion = {
                         border = "rounded",
-                        scrollbar = false
+                        scrollbar = false,
                     },
                     -- documentation = cmp.config.window.bordered(),
                     documentation = {
-                        border = "rounded"
-                    }
-
+                        border = "rounded",
+                    },
                 },
-
             })
 
-            cmp.setup.cmdline({ '/', '?' }, {
+            cmp.setup.cmdline({ "/", "?" }, {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp_document_symbol' }
+                    { name = "nvim_lsp_document_symbol" },
                 }, {
-                    { name = 'buffer' }
-                })
+                    { name = "buffer" },
+                }),
             })
 
-            cmp.setup.cmdline(':', {
+            cmp.setup.cmdline(":", {
                 mapping = cmp.mapping.preset.cmdline(),
                 sources = cmp.config.sources({
-                    { name = 'path' }
+                    { name = "path" },
                 }, {
-                    { name = 'cmdline', keyword_length = 1 }
-                })
+                    { name = "cmdline", keyword_length = 1 },
+                }),
             })
         end,
     },

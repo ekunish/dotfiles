@@ -10,46 +10,65 @@ local wk = require("which-key")
 
 wk.register({
     f = {
-        name = "file",                                             -- optional group name
-        f = { "<cmd>Telescope find_files<cr>", "Find File" },      -- create a binding with label
-        F = { "<cmd>Telescope live_grep<cr>", "Live Grep" },       -- create a binding with label
+        name = "file",                                       -- optional group name
+        f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+        F = { "<cmd>Telescope live_grep<cr>", "Live Grep" }, -- create a binding with label
         r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" }, -- additional options for creating the keymap
         -- n = { "New File" },                           -- just a label. don't create any mapping
         -- e = "Edit File",                              -- same as above
         -- ["1"] = "which_key_ignore",                   -- special label to hide it in the popup
-        b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
+        b = {
+            function()
+                print("bar")
+            end,
+            "Foobar",
+        }, -- you can also pass functions!
     },
     l = {
         name = "lsp",
-        d = { vim.lsp.buf.definition, "Goto Definition" },
-        D = { vim.lsp.buf.declaration, "Goto Declaration" },
-        k = { vim.lsp.buf.hover, "Show Hover" },
-        r = { vim.lsp.buf.references, "Goto References" },
-        i = { vim.lsp.buf.implementation, "Goto Implementation" },
-        h = { vim.lsp.buf.hover, "Show Hover" },
-        a = { vim.lsp.buf.code_action, "Code Action" },
+        g = { "<cmd>Lspsaga finder<cr>", "Finder" },
+        a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
+        d = { "<cmd>Lspsaga goto_definition<cr>", "Goto Definition" },
+        D = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definition" },
         f = { vim.lsp.buf.format, "Format" },
+        i = { "<cmd>LspInfo<cr>", "Info" },
+        j = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Next Diagnostic" },
+        k = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Prev Diagnostic" },
+        q = { vim.diagnostic.setloclist, "Quickfix" },
+        r = { "<cmd>Lspsaga rename<cr>", "Rename" },
+        K = { "<cmd>Lspsaga hover_doc<cr>", "Show Hover" },
+        R = { vim.lsp.buf.references, "Goto References" },
         s = { vim.lsp.buf.signature_help, "Signature Help" },
-        R = { vim.lsp.buf.rename, "Rename" },
-        x = { vim.lsp.stop_client(vim.lsp.get_active_clients), "Stop LSP" },
-        -- ["1"] = "which_key_ignore",
+        o = { "<cmd>Lspsaga outline<cr>", "Show Outline" },
     },
     c = {
         name = "Copilot",
-        a = {"<cmd>CopilotChat<cr>", "Open - CopilotChat"},
-        b = {"<cmd>CopilotChatBuffer<cr>", "File - CopilotChat"},
-        y = {"<cmd>CopilotChatYanked<cr>", "Yanked - CopilotChat"},
+        a = { "<cmd>CopilotChat<cr>", "Open - CopilotChat" },
+        b = { "<cmd>CopilotChatBuffer<cr>", "File - CopilotChat" },
+        y = { "<cmd>CopilotChatYanked<cr>", "Yanked - CopilotChat" },
+    },
+    d = {
+        name = "Debug",
+        t = { "<cmd>DapToggleBreakpoint<cr>", "Toggle Breakpoint" },
+        c = { "<cmd>DapContinue<cr>", "Continue" },
     },
     h = { "<cmd>noh<cr>", "Clear Highlight" },
-    t = { "<cmd>Neotree toggle<cr>", "Neotree Toggle" },
-    m = { "<cmd>Mason<cr>", "Mason" },
-    p = { "<cmd>Lazy<cr>", "Lazy" },
+    e = { "<cmd>Neotree toggle<cr>", "Neotree Toggle" },
+    t = {
+        name = "Terminal",
+        o = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+        h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+        v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+    },
+    M = { "<cmd>Mason<cr>", "Mason" },
+    L = { "<cmd>Lazy<cr>", "Lazy" },
+    P = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 }, { prefix = "<leader>" })
 
+vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>")
+vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>")
+vim.keymap.set("n", "<C-t>", "<cmd>Neotree toggle<cr>", {})
 -- vim.api.nvim_set_keymap("i", "<Tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-vim.keymap.set("n", "<S-l>", "<CMD>BufferLineCycleNext<CR>")
-vim.keymap.set("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>")
-vim.keymap.set('n', '<C-t>', ':Neotree toggle<CR>', {})
 -- vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 -- vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
 -- vim.keymap.set('n', '<C-f>', require("telescope.builtin").find_files, {})
