@@ -137,21 +137,21 @@ alias lvim="~/.local/bin/lvim"
 
 #################################  exa  #################################
 
-if [[ $(command -v exa) ]]; then
-    alias e='exa --icons --git'
-    alias l=e
-    # alias ls=e
-    alias ls='exa -a --icons --git'
-    alias ea='exa -a --icons --git'
-    alias la=ea
-    alias ee='exa -aahl --icons --git'
-    alias ll=ee
-    alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-    alias lt=et
-    alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
-    alias lta=eta
-    alias l='clear && ls'
-fi
+# if [[ $(command -v exa) ]]; then
+#     alias e='exa --icons --git'
+#     alias l=e
+#     # alias ls=e
+#     alias ls='exa -a --icons --git'
+#     alias ea='exa -a --icons --git'
+#     alias la=ea
+#     alias ee='exa -aahl --icons --git'
+#     alias ll=ee
+#     alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+#     alias lt=et
+#     alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+#     alias lta=eta
+#     alias l='clear && ls'
+# fi
 
 
 #################################  fzf  #################################
@@ -210,3 +210,15 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 ################ poetry ############################
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/ekunish/.config/.dart-cli-completion/zsh-config.zsh ]] && . /Users/ekunish/.config/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+
+################## Android Studio ############################
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
