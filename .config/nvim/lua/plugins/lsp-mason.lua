@@ -26,7 +26,7 @@ return {
 		lazy = false,
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "ts_ls", "pyright", "clangd"},
+				ensure_installed = { "lua_ls", "ts_ls", "pyright", "clangd" },
 			})
 		end,
 	},
@@ -39,7 +39,7 @@ return {
 		lazy = false,
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            local on_attach = require("cmp_nvim_lsp").on_attach
+			local on_attach = require("cmp_nvim_lsp").on_attach
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
@@ -52,13 +52,32 @@ return {
 			})
 			lspconfig.pyright.setup({
 				capabilities = capabilities,
+				settings = {
+					pyright = {
+						-- Using Ruff's import organizer
+						disableOrganizeImports = true,
+					},
+					python = {
+						analysis = {
+							-- Ignore all files for analysis to exclusively use Ruff for linting
+							ignore = { "*" },
+						},
+					},
+				},
 			})
 			lspconfig.clangd.setup({
-                on_attach = function(client, bufnr)
-                    client.server_capabilities.signatureHelpProvider = false
-                    -- on_attach(client, bufnr)
-                end,
+				on_attach = function(client, bufnr)
+					client.server_capabilities.signatureHelpProvider = false
+					-- on_attach(client, bufnr)
+				end,
 				capabilities = capabilities,
+			})
+			lspconfig.ruff.setup({
+				init_options = {
+					settings = {
+						capabilities = capabilities,
+					},
+				},
 			})
 			lspconfig.arduino_language_server.setup({
 				capabilities = capabilities,

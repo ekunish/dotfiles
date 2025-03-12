@@ -16,7 +16,7 @@ set showtabline=4
 set cmdheight=1
 set noswapfile
 set undofile
-set nowrap
+set wrap
 set hlsearch
 set incsearch
 set autoread
@@ -32,6 +32,7 @@ set showmatch
 set matchtime=1
 set matchpairs& matchpairs+=<:>
 set backspace=indent,eol,start
+set synmaxcol=320
 ]])
 
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {

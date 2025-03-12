@@ -11,9 +11,9 @@ return {
     lazy = false,
     config = function()
 	vim.g.copilot_no_tab_map = true
-        require("copilot").setup({
-            suggestion = { enabled = false },
-            panel = { enabled = false },
-        })
+        -- require("copilot").setup({
+        --     suggestion = { enabled = false },
+        --     panel = { enabled = false },
+        -- })
     end,
 }
