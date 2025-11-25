@@ -17,6 +17,9 @@ export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
 alias bundletool="java -jar $HOME/bundletool/bundletool-all-1.10.0.jar"
 
+################## Android Studio ############################
+export ANDROID_HOME=~/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
 ################################# conda ##################################
 
@@ -70,7 +73,6 @@ setopt auto_cd
 
 # disable ctrl+s, ctrl+q
 setopt no_flow_control
-
 
 
 #################################  Zplug  #################################
@@ -130,27 +132,29 @@ export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 export PATH="$HOME/.local/bin:$PATH"
+
+
 #################################  Lunarvim  ################################
 #export PATH="your-dir:$PATH" #$HOME/.local/bin/lvim
 # export PATH="$HOME/.local/bin:$PATH"
-alias lvim="~/.local/bin/lvim"
+# alias lvim="~/.local/bin/lvim"
 
 #################################  exa  #################################
 
 # if [[ $(command -v exa) ]]; then
-#     alias e='exa --icons --git'
-#     alias l=e
-#     # alias ls=e
-#     alias ls='exa -a --icons --git'
-#     alias ea='exa -a --icons --git'
-#     alias la=ea
-#     alias ee='exa -aahl --icons --git'
-#     alias ll=ee
-#     alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
-#     alias lt=et
-#     alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
-#     alias lta=eta
-#     alias l='clear && ls'
+    # alias e='exa --icons --git'
+    # alias l=e
+    # alias ls=e
+    # alias ls='exa -a --icons --git'
+    # alias ea='exa -a --icons --git'
+    # alias la=ea
+    # alias ee='exa -aahl --icons --git'
+    # alias ll=ee
+    # alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
+    # alias lt=et
+    # alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
+    # alias lta=eta
+    # alias l='clear && ls'
 # fi
 
 
@@ -162,8 +166,9 @@ eval "$(fzf --zsh)"
 #################################  original command  #################################
 # ip () {ifconfig | grep 192}
 # reload () { exec $SHELL -l}
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+# Volta is disabled in favor of NVM
+# export VOLTA_HOME="$HOME/.volta"
+# export PATH="$VOLTA_HOME/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="/Users/ekunish/Library/pnpm"
@@ -219,6 +224,9 @@ autoload -Uz compinit && compinit
 ## [/Completion]
 
 
-################## Android Studio ############################
-export ANDROID_HOME=~/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Added by Antigravity
+export PATH="/Users/ekunish/.antigravity/antigravity/bin:$PATH"

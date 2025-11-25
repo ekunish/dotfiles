@@ -41,3 +41,9 @@
 /.config/karabiner
 /.config/Unreal Engine
 /.config/crossnote
+/.config/dlv
+/.config/gh
+/.config/gh-dash
+/.config/git
+/.config/.dart-cli-completion
+.DS_Store
