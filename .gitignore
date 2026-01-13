@@ -46,4 +46,11 @@
 /.config/gh-dash
 /.config/git
 /.config/.dart-cli-completion
+/.config/marimo
+/.config/nvm
+/.config/rclone
+/.config/uv
+/.config/wandb
+/.config/wireshark
+/.config/wezterm/_wezterm.lua
 .DS_Store
