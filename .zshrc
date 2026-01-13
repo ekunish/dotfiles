@@ -51,8 +51,13 @@ setopt share_history        # 履歴を他のシェルとリアルタイム共�
 
 
 #################################  COMPLEMENT  #################################
-# enable completion
-autoload -Uz compinit && compinit
+# 補完システム（1日1回だけ再構築、それ以外はキャッシュ使用）
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # 補完候補をそのまま探す -> 小文字を大文字に変えて探す -> 大文字を小文字に変えて探す
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
@@ -74,49 +79,57 @@ setopt auto_cd
 # disable ctrl+s, ctrl+q
 setopt no_flow_control
 
+# ディレクトリスタック
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_silent
 
-#################################  Zplug  #################################
-export ZPLUG_HOME=$(brew --prefix)/opt/zplug
-source $ZPLUG_HOME/init.zsh
+# 補完改善
+setopt complete_in_word
+setopt always_to_end
 
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+# グロビング強化
+setopt extended_glob
 
-# 非同期処理できるようになる
-zplug "mafredri/zsh-async"
-# 構文のハイライト(https://github.com/zsh-users/zsh-syntax-highlighting)
-# zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zdharma-continuum/fast-syntax-highlighting"
-# コマンド入力途中で上下キー押したときの過去履歴がいい感じに出るようになる
-zplug "zsh-users/zsh-history-substring-search"
-# 過去に入力したコマンドの履歴が灰色のサジェストで出る
-zplug "zsh-users/zsh-autosuggestions"
-zplug "hchbaw/auto-fu.zsh"
+# 履歴改善
+setopt hist_ignore_dups
+setopt hist_reduce_blanks
+
+
+#################################  zinit  #################################
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+# 非同期処理
+zinit light mafredri/zsh-async
+
+# シンタックスハイライト（Turboモードで遅延ロード）
+zinit ice wait lucid
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# 履歴サブストリング検索
+zinit ice wait lucid
+zinit light zsh-users/zsh-history-substring-search
+
+# オートサジェスト
+zinit ice wait lucid atload'_zsh_autosuggest_start; bindkey "^[[Z" autosuggest-accept'
+zinit light zsh-users/zsh-autosuggestions
+
 # 補完強化
-zplug "zsh-users/zsh-completions"
-# 256色表示にする
-zplug "chrissicool/zsh-256color"
-# コマンドライン上の文字リテラルの絵文字を emoji 化する
-zplug "mrowa44/emojify", as:command
+zinit ice wait lucid blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
 
+# z - ディレクトリジャンプ
+zinit ice wait lucid
+zinit light agkozak/zsh-z
 
-zplug "agkozak/zsh-z"
-zplug "kazhala/dotbare"
+# dotbare
+zinit ice wait lucid
+zinit light kazhala/dotbare
 
-# zplug "Aloxaf/fzf-tab"
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load
-
-
-bindkey '^I'   complete-word       # tab          | complete
-bindkey '^[[Z' autosuggest-accept  # shift + tab  | autosuggest
+bindkey '^I' complete-word  # tab | complete
 
 
 ################################# pmy #####################################
@@ -214,7 +227,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 ################ poetry ############################
 fpath+=~/.zfunc
-autoload -Uz compinit && compinit
+# compinit は上部で1回のみ実行（キャッシュ化済み）
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
@@ -224,9 +237,20 @@ autoload -Uz compinit && compinit
 ## [/Completion]
 
 
+# ===== NVM（遅延ロード）=====
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# 遅延ロード関数
+_load_nvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+# nvm/node/npm/npx を初回呼び出し時に初期化
+nvm() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; nvm "$@" }
+node() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; node "$@" }
+npm() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; npm "$@" }
+npx() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; npx "$@" }
 
 # Added by Antigravity
 export PATH="/Users/ekunish/.antigravity/antigravity/bin:$PATH"
