@@ -1,0 +1,20 @@
+# Font
+font-family = HackGen Console NF
+font-size = 12.5
+
+# Theme
+theme = Catppuccin Mocha
+
+# Window
+window-width = 120
+window-height = 28
+background-opacity = 0.91
+background-blur = 20
+
+# Padding
+window-padding-x = 8
+window-padding-y = 8
+
+# macOS
+macos-titlebar-style = tabs
+macos-option-as-alt = true
