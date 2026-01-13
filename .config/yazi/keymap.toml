@@ -1,0 +1,11 @@
+# Yazi keymap configuration
+# q = 終了（ディレクトリ引き継ぎなし）
+# Q = 終了（ディレクトリ引き継ぎあり）
+
+[manager]
+prepend_keymap = [
+  # q で終了（ディレクトリ引き継ぎなし）
+  { on = ["q"], run = "quit --no-cwd-file", desc = "Quit without changing directory" },
+  # Q で終了（ディレクトリ引き継ぎあり）
+  { on = ["Q"], run = "quit", desc = "Quit and change to current directory" },
+]

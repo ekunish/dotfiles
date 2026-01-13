@@ -121,10 +121,6 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
 zinit light zsh-users/zsh-completions
 
-# z - ディレクトリジャンプ
-zinit ice wait lucid
-zinit light agkozak/zsh-z
-
 # dotbare
 zinit ice wait lucid
 zinit light kazhala/dotbare
@@ -254,3 +250,27 @@ npx() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; npx "$@" }
 
 # Added by Antigravity
 export PATH="/Users/ekunish/.antigravity/antigravity/bin:$PATH"
+
+
+#################################  Modern CLI Tools  #################################
+# eza (ls代替)
+alias ls='eza --icons'
+alias ll='eza -la --icons --git'
+alias la='eza -a --icons'
+alias lt='eza --tree --icons'
+
+# zoxide（ディレクトリジャンプ）
+eval "$(zoxide init zsh)"
+
+# yazi - 終了時にディレクトリを引き継ぐ
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
+
+# lazygit
+alias lg='lazygit'

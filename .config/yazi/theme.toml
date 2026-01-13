@@ -1,0 +1,5 @@
+# Yazi theme configuration
+# Use Catppuccin Mocha flavor
+
+[flavor]
+use = "catppuccin-mocha"
