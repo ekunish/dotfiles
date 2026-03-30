@@ -1,8 +1,17 @@
-# ~/.config/starship.toml
+# ~/.config/starship.toml — Catppuccin Mocha
+# Palette: https://catppuccin.com/palette
+#   Rosewater #f5e0dc  Flamingo #f2cdcd  Pink #f5c2e7     Mauve #cba6f7
+#   Red #f38ba8        Maroon #eba0ac    Peach #fab387     Yellow #f9e2af
+#   Green #a6e3a1      Teal #94e2d5      Sky #89dceb       Sapphire #74c7ec
+#   Blue #89b4fa       Lavender #b4befe  Text #cdd6f4      Subtext1 #bac2de
+#   Overlay0 #6c7086
 
 
 [aws]
-style = "bold #ffb86c"
+style = "bold #fab387"
+
+[gcloud]
+disabled = true
 
 [battery]
 full_symbol = "🔋"
@@ -11,30 +20,30 @@ discharging_symbol = "⚡"
 
 [[battery.display]]
 threshold = 30
-style = "bold #ff5555"
+style = "bold #f38ba8"
 
 [character]
-error_symbol = "[👾](bold #ff5555)"
-success_symbol = "[❯](bold #50fa7b)"
+error_symbol = "[👾](bold #f38ba8)"
+success_symbol = "[❯](bold #a6e3a1)"
 
 [cmd_duration]
-min_time = 10_000  # Show command duration over 10,000 milliseconds (=10 sec)
+min_time = 10_000
 format = " ⏰ [$duration]($style)"
-style = "bold #f1fa8c"
+style = "bold #f9e2af"
 
 [directory]
 truncation_length = 5
 format = "[$path]($style)[$lock_symbol]($lock_style) "
-style = "bold #50fa7b"
+style = "bold #89b4fa"
 
 [git_branch]
 format = " [$symbol$branch]($style) "
-symbol = " "
-style = "bold #ff79c6"
+symbol = " "
+style = "bold #cba6f7"
 
 [git_commit]
 commit_hash_length = 8
-style = "bold white"
+style = "bold #bac2de"
 
 [git_state]
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
@@ -50,25 +59,25 @@ modified = "🏄 ${count} "
 staged = "🗃️ ${count} "
 renamed = "📛 ${count} "
 deleted = "🗑️ ${count} "
-style = "bold #ff5555"
+style = "bold #f38ba8"
 format = "$all_status$ahead_behind"
 
 [hostname]
 ssh_only = false
 format = "<[$hostname]($style)>"
 trim_at = "-"
-style = "bold #bd93f9"
+style = "bold #b4befe"
 disabled = true
 
 [julia]
 format = "[$symbol$version]($style) "
 symbol = "ஃ "
-style = "bold #50fa7b"
+style = "bold #94e2d5"
 
 [memory_usage]
 format = "$symbol[${ram}( | ${swap})]($style) "
 threshold = 70
-style = "bold dimmed white"
+style = "bold #6c7086"
 disabled = false
 
 [package]
@@ -76,25 +85,25 @@ disabled = true
 
 [python]
 format = "[$symbol$version]($style) "
-style = "bold #50fa7b"
+style = "bold #89dceb"
 symbol = "🐍 "
 
 [nodejs]
 format = "[$symbol$version]($style) "
-style = "bold gray"
+style = "bold #a6e3a1"
 symbol = "👽 "
 
 [rust]
 format = "[$symbol$version]($style) "
-style = "bold #50fa7b"
+style = "bold #fab387"
 
 [time]
 time_format = "%T"
 format = "$time($style) "
-style = "white"
+style = "#bac2de"
 disabled = false
 
 [username]
 show_always = false
 format = "[$user]($style) on "
-style_user = "bold #8be9fd"
+style_user = "bold #74c7ec"

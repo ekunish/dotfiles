@@ -1,121 +1,371 @@
--- Pull in the wezterm API
 local wezterm = require 'wezterm'
-
-
--- This will hold the configuration.
 local config = wezterm.config_builder()
+local act = wezterm.action
+local mux = wezterm.mux
 
+config.color_scheme = 'Catppuccin Mocha'
 
+-- ---------------------
+-- フォント設定
+-- ---------------------
+config.font = wezterm.font('HackGen Console NF', { weight = 'Regular', italic = false })
+config.font_size = 12.5
 
+-- ---------------------
+-- 基本設定
+-- ---------------------
+config.use_ime = true
+config.audible_bell = 'Disabled'
+config.adjust_window_size_when_changing_font_size = false
+config.front_end = 'WebGpu'
+config.initial_cols = 120
+config.initial_rows = 28
 
--- Use the defaults as a base
+-- ---------------------
+-- 外観設定
+-- ---------------------
+config.window_background_opacity = 0.91
+config.text_background_opacity = 1.0
+config.macos_window_background_blur = 20
+-- config.window_decorations = 'TITLE | RESIZE'
+config.window_decorations = 'RESIZE'
+config.window_padding = { left = 8, right = 8, top = 8, bottom = 8 }
+
+-- ---------------------
+-- タブバー設定
+-- ---------------------
+config.use_fancy_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = false
+config.tab_max_width = 64
+
+-- ---------------------
+-- ハイパーリンクルール
+-- ---------------------
 config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
--- make task numbers clickable
--- the first matched regex group is captured in $1.
 table.insert(config.hyperlink_rules, {
   regex = [[\b[tt](\d+)\b]],
   format = 'https://example.com/tasks/?t=$1',
 })
 
--- make username/project paths clickable. this implies paths like the following are for github.
--- ( "nvim-treesitter/nvim-treesitter" | wbthomason/packer.nvim | wezterm/wezterm | "wezterm/wezterm.git" )
--- as long as a full url hyperlink regex exists above this it should not match a full url to
--- github or gitlab / bitbucket (i.e. https://gitlab.com/user/project.git is still a whole clickable url)
 table.insert(config.hyperlink_rules, {
   regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
   format = 'https://www.github.com/$1/$3',
 })
 
--- タブバー設定
-config.use_fancy_tab_bar = false
-config.colors = {
-  tab_bar = {
-    -- The color of the strip that goes along the top of the window
-    -- (does not apply when fancy tab bar is in use)
-    background = '#0b0022',
+-- ---------------------
+-- 起動時にウィンドウを最大化
+-- ---------------------
+-- wezterm.on('gui-startup', function(cmd)
+--   local tab, pane, window = mux.spawn_window(cmd or {})
+--   window:gui_window():maximize()
+-- end)
 
-    -- The active tab is the one that has focus in the window
-    active_tab = {
-      -- The color of the background area for the tab
-      bg_color = '#2b2042',
-      -- The color of the text for the tab
-      fg_color = '#c0c0c0',
+-- ---------------------
+-- ステータスバー（右: ワークスペース | CWD | キーテーブル | 日時）
+-- ---------------------
+local wifi_cache = { ssid = '', updated_at = 0 }
+local WIFI_CACHE_SECS = 1800
 
-      -- Specify whether you want "Half", "Normal" or "Bold" intensity for the
-      -- label shown for this tab.
-      -- The default is "Normal"
-      intensity = 'Normal',
+local function get_wifi_ssid()
+  local now = os.time()
+  if now - wifi_cache.updated_at < WIFI_CACHE_SECS then
+    return wifi_cache.ssid
+  end
+  local success, stdout = wezterm.run_child_process({ 'shortcuts', 'run', 'Get Wi-Fi SSID' })
+  local result
+  if not success then
+    result = '󰤭 offline'
+  else
+    local ssid = stdout:gsub('%s+$', '')
+    result = #ssid > 0 and ('󰤨 ' .. ssid) or '󰤭 offline'
+  end
+  wifi_cache.ssid = result
+  wifi_cache.updated_at = now
+  return result
+end
 
-      -- Specify whether you want "None", "Single" or "Double" underline for
-      -- label shown for this tab.
-      -- The default is "None"
-      underline = 'None',
+local function get_battery_status()
+  local success, stdout = wezterm.run_child_process({ 'pmset', '-g', 'batt' })
+  if not success then return '' end
+  local pct = stdout:match('(%d+)%%')
+  if not pct then return '' end
+  local n = tonumber(pct)
+  local icon
+  if n >= 80 then icon = '󰁹'
+  elseif n >= 60 then icon = '󰂁'
+  elseif n >= 40 then icon = '󰁿'
+  elseif n >= 20 then icon = '󰁽'
+  else icon = '󰁻'
+  end
+  if stdout:match('AC Power') then icon = '󰂄' end
+  return icon .. ' ' .. pct .. '%'
+end
 
-      -- Specify whether you want the text to be italic (true) or not (false)
-      -- for this tab.  The default is false.
-      italic = false,
+wezterm.on('update-right-status', function(window, pane)
+  local workspace = window:active_workspace()
+  local date = wezterm.strftime('%m/%d %H:%M')
+  local battery = get_battery_status()
+  local wifi = get_wifi_ssid()
 
-      -- Specify whether you want the text to be rendered with strikethrough (true)
-      -- or not for this tab.  The default is false.
-      strikethrough = false,
-    },
+  -- アクティブなキーテーブル名を表示（モーダル操作のフィードバック）
+  local key_table = window:active_key_table()
+  local mode = key_table and (' ' .. key_table .. ' |') or ''
 
-    -- Inactive tabs are the tabs that do not have focus
-    inactive_tab = {
-      bg_color = '#1b1032',
-      fg_color = '#808080',
+  window:set_right_status(wezterm.format({
+    { Foreground = { Color = '#89b4fa' } },
+    { Text = ' ' .. workspace .. ' ' },
+    { Foreground = { Color = '#6c7086' } },
+    { Text = '|' },
+    { Foreground = { Color = '#f38ba8' } },
+    { Text = mode },
+    { Foreground = { Color = '#94e2d5' } },
+    { Text = ' ' .. wifi .. ' ' },
+    { Foreground = { Color = '#6c7086' } },
+    { Text = '|' },
+    { Foreground = { Color = '#a6e3a1' } },
+    { Text = ' ' .. battery .. ' ' },
+    { Foreground = { Color = '#6c7086' } },
+    { Text = '|' },
+    { Foreground = { Color = '#fab387' } },
+    { Text = ' ' .. date .. ' ' },
+  }))
+end)
 
-      -- The same options that were listed under the `active_tab` section above
-      -- can also be used for `inactive_tab`.
-    },
+-- ---------------------
+-- タブタイトルのカスタマイズ
+-- ---------------------
+local process_icons = {
+  ['nvim'] = ' ',
+  ['vim'] = ' ',
+  ['zsh'] = ' ',
+  ['bash'] = ' ',
+  ['fish'] = ' ',
+  ['node'] = ' ',
+  ['python'] = ' ',
+  ['python3'] = ' ',
+  ['ruby'] = ' ',
+  ['go'] = ' ',
+  ['cargo'] = ' ',
+  ['rustc'] = ' ',
+  ['docker'] = ' ',
+  ['git'] = ' ',
+  ['lazygit'] = ' ',
+  ['ssh'] = ' ',
+  ['htop'] = '󰍛 ',
+  ['btm'] = '󰍛 ',
+  ['top'] = '󰍛 ',
+  ['make'] = ' ',
+  ['kubectl'] = '󱃾 ',
+  ['lua'] = ' ',
+}
 
-    -- You can configure some alternate styling when the mouse pointer
-    -- moves over inactive tabs
-    inactive_tab_hover = {
-      bg_color = '#3b3052',
-      fg_color = '#909090',
-      italic = true,
+local function get_process_name(pane)
+  local name = pane.foreground_process_name or ''
+  return name:gsub('(.*/)(.*)', '%2')
+end
 
-      -- The same options that were listed under the `active_tab` section above
-      -- can also be used for `inactive_tab_hover`.
-    },
+local function get_cwd_basename(pane)
+  local cwd = pane:get_current_working_dir()
+  if not cwd then return '' end
+  local path = cwd.file_path or ''
+  local home = os.getenv('HOME') or ''
+  if path == home or path == home .. '/' then return '~' end
+  return path:gsub('(.*/)(.*)', '%2')
+end
 
-    -- The new tab button that let you create new tabs
-    new_tab = {
-      bg_color = '#1b1032',
-      fg_color = '#808080',
+local TAB_WIDTH = 20
 
-      -- The same options that were listed under the `active_tab` section above
-      -- can also be used for `new_tab`.
-    },
+local function pad_or_truncate(str, width)
+  local len = wezterm.column_width(str)
+  if len >= width then
+    return wezterm.truncate_right(str, width)
+  end
+  return str .. string.rep(' ', width - len)
+end
 
-    -- You can configure some alternate styling when the mouse pointer
-    -- moves over the new tab button
-    new_tab_hover = {
-      bg_color = '#3b3052',
-      fg_color = '#909090',
-      italic = true,
+wezterm.on('format-tab-title', function(tab)
+  local pane = tab.active_pane
+  local process = get_process_name(pane)
+  local index = tab.tab_index + 1
 
-      -- The same options that were listed under the `active_tab` section above
-      -- can also be used for `new_tab_hover`.
-    },
+  local icon = process_icons[process] or ' '
+
+  -- カスタムタイトルがあればそちらを優先
+  local title = tab.tab_title
+  local label
+  if title and #title > 0 then
+    label = title
+  else
+    -- シェルの場合はディレクトリ名を表示、それ以外はプロセス名
+    local shells = { zsh = true, bash = true, fish = true }
+    label = shells[process] and get_cwd_basename(pane) or process
+  end
+
+  -- ズームインジケーター
+  local zoom = ''
+  for _, p in ipairs(tab.panes) do
+    if p.is_zoomed then
+      zoom = ' '
+      break
+    end
+  end
+
+  -- 未読出力インジケーター
+  local unseen = ''
+  if not tab.is_active then
+    for _, p in ipairs(tab.panes) do
+      if p.has_unseen_output then
+        unseen = ' 󰈸'
+        break
+      end
+    end
+  end
+
+  local content = string.format('%d:%s%s%s%s', index, icon, label, zoom, unseen)
+  return ' ' .. pad_or_truncate(content, TAB_WIDTH) .. ' '
+end)
+
+-- ---------------------
+-- Leader Key: Ctrl+a（tmux 互換）
+-- Ctrl+Space は入力切り替えと競合するため避ける
+-- readline の行頭移動は Ctrl+a 二度押しで送信可能
+-- ---------------------
+config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+
+-- ---------------------
+-- キーバインド
+-- ---------------------
+config.keys = {
+  -- フォントサイズ変更
+  { key = '=', mods = 'CTRL', action = act.IncreaseFontSize },
+  { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
+  { key = '0', mods = 'CTRL', action = act.ResetFontSize },
+
+  -- タブ操作
+  { key = 't', mods = 'CMD', action = act.SpawnTab('CurrentPaneDomain') },
+  { key = 'w', mods = 'CMD', action = act.CloseCurrentTab({ confirm = true }) },
+
+  -- タブ切り替え (Cmd+数字)
+  { key = '1', mods = 'CMD', action = act.ActivateTab(0) },
+  { key = '2', mods = 'CMD', action = act.ActivateTab(1) },
+  { key = '3', mods = 'CMD', action = act.ActivateTab(2) },
+  { key = '4', mods = 'CMD', action = act.ActivateTab(3) },
+  { key = '5', mods = 'CMD', action = act.ActivateTab(4) },
+  { key = '6', mods = 'CMD', action = act.ActivateTab(5) },
+  { key = '7', mods = 'CMD', action = act.ActivateTab(6) },
+  { key = '8', mods = 'CMD', action = act.ActivateTab(7) },
+  { key = '9', mods = 'CMD', action = act.ActivateTab(-1) },
+
+  -- タブ移動
+  { key = '[', mods = 'CMD', action = act.ActivateTabRelative(-1) },
+  { key = ']', mods = 'CMD', action = act.ActivateTabRelative(1) },
+
+  -- ペイン分割（ダイレクト）
+  { key = 'd', mods = 'CMD', action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }) },
+  { key = 'd', mods = 'CMD|SHIFT', action = act.SplitVertical({ domain = 'CurrentPaneDomain' }) },
+
+  -- ペイン移動（ダイレクト）
+  { key = 'h', mods = 'CMD|ALT', action = act.ActivatePaneDirection('Left') },
+  { key = 'l', mods = 'CMD|ALT', action = act.ActivatePaneDirection('Right') },
+  { key = 'k', mods = 'CMD|ALT', action = act.ActivatePaneDirection('Up') },
+  { key = 'j', mods = 'CMD|ALT', action = act.ActivatePaneDirection('Down') },
+
+  -- ペインズーム（ダイレクト）
+  { key = 'z', mods = 'CMD', action = act.TogglePaneZoomState },
+
+  -- === Leader Key 操作 (Ctrl+a → ...) ===
+
+  -- ペイン分割
+  { key = '|', mods = 'LEADER|SHIFT', action = act.SplitHorizontal({ domain = 'CurrentPaneDomain' }) },
+  { key = '-', mods = 'LEADER', action = act.SplitVertical({ domain = 'CurrentPaneDomain' }) },
+
+  -- ペイン移動
+  { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection('Left') },
+  { key = 'l', mods = 'LEADER', action = act.ActivatePaneDirection('Right') },
+  { key = 'k', mods = 'LEADER', action = act.ActivatePaneDirection('Up') },
+  { key = 'j', mods = 'LEADER', action = act.ActivatePaneDirection('Down') },
+
+  -- ペインズーム
+  { key = 'z', mods = 'LEADER', action = act.TogglePaneZoomState },
+
+  -- ペインセレクト（ラベル表示で選択）
+  { key = 's', mods = 'LEADER', action = act.PaneSelect },
+
+  -- ペインスワップ
+  { key = 'S', mods = 'LEADER|SHIFT', action = act.PaneSelect({ mode = 'SwapWithActive' }) },
+
+  -- Quick Select（URL・パス・ハッシュ等をヒント付きコピー）
+  { key = 'f', mods = 'LEADER', action = act.QuickSelect },
+
+  -- Copy Mode（Vim スタイルのスクロールバック操作）
+  { key = 'x', mods = 'LEADER', action = act.ActivateCopyMode },
+
+  -- タブ操作
+  { key = '.', mods = 'LEADER', action = act.PromptInputLine({
+    description = wezterm.format({
+      { Foreground = { Color = '#cba6f7' } },
+      { Text = 'Tab name (empty to reset):' },
+    }),
+    action = wezterm.action_callback(function(window, pane, line)
+      if line then
+        window:active_tab():set_title(line)
+      end
+    end),
+  }) },
+  { key = 'c', mods = 'LEADER', action = act.SpawnTab('CurrentPaneDomain') },
+  { key = '[', mods = 'LEADER', action = act.ActivateTabRelative(-1) },
+  { key = ']', mods = 'LEADER', action = act.ActivateTabRelative(1) },
+  { key = 'q', mods = 'LEADER', action = act.CloseCurrentPane({ confirm = true }) },
+
+  -- ワークスペース操作
+  { key = 'w', mods = 'LEADER', action = act.ShowLauncherArgs({ flags = 'FUZZY|WORKSPACES' }) },
+  { key = 'W', mods = 'LEADER|SHIFT', action = act.PromptInputLine({
+    description = wezterm.format({
+      { Foreground = { Color = '#cba6f7' } },
+      { Text = 'New workspace name:' },
+    }),
+    action = wezterm.action_callback(function(window, pane, line)
+      if line and #line > 0 then
+        window:perform_action(act.SwitchToWorkspace({ name = line }), pane)
+      end
+    end),
+  }) },
+  { key = ',', mods = 'LEADER', action = act.PromptInputLine({
+    description = wezterm.format({
+      { Foreground = { Color = '#cba6f7' } },
+      { Text = 'Rename workspace:' },
+    }),
+    action = wezterm.action_callback(function(window, pane, line)
+      if line and #line > 0 then
+        mux.rename_workspace(window:active_workspace(), line)
+      end
+    end),
+  }) },
+  { key = 'n', mods = 'LEADER', action = act.SwitchWorkspaceRelative(1) },
+  { key = 'p', mods = 'LEADER', action = act.SwitchWorkspaceRelative(-1) },
+
+  -- リサイズモードに入る
+  { key = 'r', mods = 'LEADER', action = act.ActivateKeyTable({ name = 'resize_pane', one_shot = false }) },
+
+  -- Ctrl+a を二度押しでアプリに送信（readline の行頭移動等）
+  { key = 'a', mods = 'LEADER|CTRL', action = act.SendKey({ key = 'a', mods = 'CTRL' }) },
+}
+
+-- ---------------------
+-- Key Tables（モーダルキーバインド）
+-- ---------------------
+config.key_tables = {
+  -- リサイズモード: Leader + r で入り、Escape/Enter で抜ける
+  -- ステータスバーに "resize_pane" と表示される
+  resize_pane = {
+    { key = 'h', action = act.AdjustPaneSize({ 'Left', 2 }) },
+    { key = 'j', action = act.AdjustPaneSize({ 'Down', 2 }) },
+    { key = 'k', action = act.AdjustPaneSize({ 'Up', 2 }) },
+    { key = 'l', action = act.AdjustPaneSize({ 'Right', 2 }) },
+    { key = 'Escape', action = 'PopKeyTable' },
+    { key = 'Enter', action = 'PopKeyTable' },
   },
 }
 
-
--- This is where you actually apply your config choices.
-
--- For example, changing the initial geometry for new windows:
-config.initial_cols = 120
-config.initial_rows = 28
-
--- or, changing the font size and color scheme.
-config.font = wezterm.font("HackGen Console NF", { weight = "Regular", italic = false })
-config.font_size = 12.5
-config.color_scheme = 'Catppuccin Mocha'
-
-config.window_background_opacity = 0.91
-
--- Finally, return the configuration to wezterm:
 return config

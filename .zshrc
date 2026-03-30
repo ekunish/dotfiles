@@ -248,6 +248,17 @@ node() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; node "$@" }
 npm() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; npm "$@" }
 npx() { unfunction nvm node npm npx 2>/dev/null; _load_nvm; npx "$@" }
 
+# ===== NVM auto-use (.nvmrc 検出で自動切り替え) =====
+_nvm_auto_use() {
+  local nvmrc_path
+  nvmrc_path="$(nvm_find_nvmrc 2>/dev/null)"
+  if [ -n "$nvmrc_path" ]; then
+    nvm use 2>/dev/null
+  fi
+}
+autoload -U add-zsh-hook
+add-zsh-hook chpwd _nvm_auto_use
+
 # Added by Antigravity
 export PATH="/Users/ekunish/.antigravity/antigravity/bin:$PATH"
 

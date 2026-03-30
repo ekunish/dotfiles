@@ -18,3 +18,6 @@ window-padding-y = 8
 # macOS
 macos-titlebar-style = tabs
 macos-option-as-alt = true
+
+# shell-integration-features = ssh-terminfo,ssh-env
+shell-integration-features = no-ssh-terminfo
