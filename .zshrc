@@ -42,7 +42,7 @@ export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..)"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='
   --height 40% --layout=reverse --border
-  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
+  --color=bg+:#313244,bg:-1,spinner:#f5e0dc,hl:#f38ba8
   --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
   --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
   --color=selected-bg:#45475a
@@ -397,10 +397,10 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*' list-dirs-first true
 
 # Formatting (colored)
-zstyle ':completion:*:descriptions' format '%F{green}-- %d --%f'
-zstyle ':completion:*:corrections' format '%F{yellow}-- %d (errors: %e) --%f'
-zstyle ':completion:*:messages' format '%F{purple}-- %d --%f'
-zstyle ':completion:*:warnings' format '%F{red}-- no matches found --%f'
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*:corrections' format '[%d (errors: %e)]'
+zstyle ':completion:*:messages' format '[%d]'
+zstyle ':completion:*:warnings' format '[no matches found]'
 
 # Cache (speeds up heavy completions)
 zstyle ':completion:*' use-cache on
@@ -440,6 +440,7 @@ fi
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:*' continuous-trigger '/'
+zstyle ':fzf-tab:*' prefix ''
 
 # fzf-tab previews
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons $realpath'
