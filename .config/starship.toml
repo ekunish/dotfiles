@@ -1,4 +1,4 @@
-# ~/.config/starship.toml — Catppuccin Mocha
+# ~/.config/starship.toml — Catppuccin Mocha + Emoji Style
 # Palette: https://catppuccin.com/palette
 #   Rosewater #f5e0dc  Flamingo #f2cdcd  Pink #f5c2e7     Mauve #cba6f7
 #   Red #f38ba8        Maroon #eba0ac    Peach #fab387     Yellow #f9e2af
@@ -6,40 +6,94 @@
 #   Blue #89b4fa       Lavender #b4befe  Text #cdd6f4      Subtext1 #bac2de
 #   Overlay0 #6c7086
 
+# Global format - emoji-based with multi-line prompt
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$c\
+$golang\
+$java\
+$nodejs\
+$rust\
+$python\
+$docker_context\
+$kubernetes\
+$cmd_duration\
+$time\
+$line_break\
+$character"""
 
-[aws]
-style = "bold #fab387"
+scan_timeout = 10
+add_newline = true
 
-[gcloud]
-disabled = true
-
-[battery]
-full_symbol = "🔋"
-charging_symbol = "🔌"
-discharging_symbol = "⚡"
-
-[[battery.display]]
-threshold = 30
-style = "bold #f38ba8"
-
+# ── Character ──────────────────────────────────
 [character]
-error_symbol = "[👾](bold #f38ba8)"
 success_symbol = "[❯](bold #a6e3a1)"
+error_symbol = "[👾](bold #f38ba8)"
+vicmd_symbol = "[❮](bold #a6e3a1)"
 
-[cmd_duration]
-min_time = 10_000
-format = " ⏰ [$duration]($style)"
-style = "bold #f9e2af"
+# ── OS ─────────────────────────────────────────
+[os]
+disabled = false
+format = '[$symbol ](bold white)'
 
+[os.symbols]
+Windows = "🪟"
+Ubuntu = "🐧"
+SUSE = "🦎"
+Raspbian = "🍓"
+Mint = "🌿"
+Macos = ""
+Manjaro = "🔶"
+Linux = "🐧"
+Gentoo = "🗽"
+Fedora = "🎩"
+Alpine = "🏔️"
+Amazon = "🙂"
+Android = "🤖"
+Arch = "🏛️"
+Artix = "🏛️"
+CentOS = "💠"
+Debian = "🌀"
+Redhat = "🎩"
+RedHatEnterprise = "🎩"
+
+# ── Username / Hostname ────────────────────────
+[username]
+show_always = false
+style_user = "bold #74c7ec"
+style_root = "bold #f38ba8"
+format = '[$user]($style) '
+
+[hostname]
+ssh_only = true
+format = '[@$hostname](bold #a6e3a1) '
+disabled = false
+
+# ── Directory ──────────────────────────────────
 [directory]
-truncation_length = 5
-format = "[$path]($style)[$lock_symbol]($lock_style) "
 style = "bold #89b4fa"
+format = "[$path]($style) "
+truncation_length = 3
+truncation_symbol = "…/"
+home_symbol = "🏠"
 
+[directory.substitutions]
+"Documents" = "📄"
+"Downloads" = "📥"
+"Music" = "🎵"
+"Pictures" = "🖼️"
+"Developer" = "💻"
+
+# ── Git ────────────────────────────────────────
 [git_branch]
-format = " [$symbol$branch]($style) "
-symbol = " "
+symbol = "🌿 "
 style = "bold #cba6f7"
+format = '[$symbol$branch(:$remote_branch)]($style) '
 
 [git_commit]
 commit_hash_length = 8
@@ -49,61 +103,148 @@ style = "bold #bac2de"
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
 
 [git_status]
-conflicted = "🚨 "
-ahead = "🏎️💨 ${count} "
-behind = "🐢 ${count} "
-diverged = "🔱 🏎️💨 ${ahead_count} 🐢 ${behind_count} "
-untracked = "🚚 ${count} "
-stashed = "📦 "
-modified = "🏄 ${count} "
-staged = "🗃️ ${count} "
-renamed = "📛 ${count} "
-deleted = "🗑️ ${count} "
 style = "bold #f38ba8"
-format = "$all_status$ahead_behind"
+format = '([$all_status$ahead_behind]($style) )'
+conflicted = "⚔️ "
+ahead = "⬆️${count} "
+behind = "⬇️${count} "
+diverged = "🔀 "
+up_to_date = ""
+untracked = "✨ ${count} "
+stashed = "📦 "
+modified = "📝 ${count} "
+staged = "✅ ${count} "
+renamed = "📛 ${count} "
+deleted = "🗑️${count} "
 
-[hostname]
-ssh_only = false
-format = "<[$hostname]($style)>"
-trim_at = "-"
-style = "bold #b4befe"
-disabled = true
+# ── Languages ──────────────────────────────────
+[nodejs]
+symbol = "🟢 "
+style = "bold #a6e3a1"
+format = '[$symbol$version]($style) '
+version_format = "v${major}.${minor}"
+
+[rust]
+symbol = "🦀 "
+style = "bold #fab387"
+format = '[$symbol$version]($style) '
+
+[python]
+symbol = "🐍 "
+style = "bold #89dceb"
+format = '[$symbol${pyenv_prefix}(${version} )(\($virtualenv\))]($style) '
+
+[golang]
+symbol = "🐹 "
+style = "bold #94e2d5"
+format = '[$symbol$version]($style) '
+
+[java]
+symbol = "☕ "
+style = "bold #f38ba8"
+format = '[$symbol$version]($style) '
+
+[c]
+symbol = "🔵 "
+style = "bold #89b4fa"
+format = '[$symbol$version]($style) '
 
 [julia]
 format = "[$symbol$version]($style) "
 symbol = "ஃ "
 style = "bold #94e2d5"
 
+# ── Docker / Kubernetes ────────────────────────
+[docker_context]
+symbol = "🐳 "
+style = "bold #89b4fa"
+format = '[$symbol$context]($style) '
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile", "compose.yml", "compose.yaml"]
+
+[kubernetes]
+symbol = "☸️ "
+style = "bold #89b4fa"
+format = '[$symbol$context( \($namespace\))]($style) '
+disabled = false
+
+# ── Command Duration ───────────────────────────
+[cmd_duration]
+min_time = 2_000
+format = "[took ⏱️ $duration](bold #f9e2af) "
+show_milliseconds = false
+
+# ── Memory Usage ───────────────────────────────
 [memory_usage]
-format = "$symbol[${ram}( | ${swap})]($style) "
+format = "$symbol[$ram_pct]($style) "
 threshold = 70
 style = "bold #6c7086"
+symbol = "🧠 "
 disabled = false
 
-[package]
-disabled = true
+# ── Battery ────────────────────────────────────
+[battery]
+full_symbol = "🔋"
+charging_symbol = "🔌"
+discharging_symbol = "⚡"
 
-[python]
-format = "[$symbol$version]($style) "
-style = "bold #89dceb"
-symbol = "🐍 "
+[[battery.display]]
+threshold = 30
+style = "bold #f38ba8"
 
-[nodejs]
-format = "[$symbol$version]($style) "
-style = "bold #a6e3a1"
-symbol = "👽 "
+# ── Time ───────────────────────────────────────
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "#bac2de"
+format = '🕐 [$time]($style) '
 
-[rust]
-format = "[$symbol$version]($style) "
+# ── Cloud ──────────────────────────────────────
+[aws]
+format = '[$symbol($profile)(\($region\))(\[$duration\])]($style) '
+symbol = "☁️ "
 style = "bold #fab387"
 
-[time]
-time_format = "%T"
-format = "$time($style) "
-style = "#bac2de"
+[gcloud]
+disabled = true
+
+# ── Other ──────────────────────────────────────
+[jobs]
+symbol = "⚙️"
+style = "bold #f38ba8"
+number_threshold = 1
+format = "[$symbol$number]($style) "
+
+[package]
+symbol = "📦 "
+style = "bold #fab387"
+format = "[$symbol$version]($style) "
 disabled = false
 
-[username]
-show_always = false
-format = "[$user]($style) on "
-style_user = "bold #74c7ec"
+[status]
+style = "bg:#f38ba8"
+symbol = "❌"
+format = '[$symbol $status]($style) '
+disabled = false
+
+[terraform]
+format = "[$symbol$workspace]($style) "
+symbol = "💠 "
+style = "bold #cba6f7"
+
+[nix_shell]
+symbol = "❄️ "
+format = '[$symbol$state( \($name\))]($style) '
+style = "bold #89b4fa"
+
+[shell]
+fish_indicator = "🐠"
+powershell_indicator = "⚡"
+bash_indicator = "bash"
+zsh_indicator = "zsh"
+unknown_indicator = "?"
+style = "bold #94e2d5"
+disabled = true
+
+[line_break]
+disabled = false

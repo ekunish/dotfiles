@@ -1,11 +1,13 @@
-# Yazi keymap configuration
-# q = 終了（ディレクトリ引き継ぎなし）
-# Q = 終了（ディレクトリ引き継ぎあり）
+# ============================================================
+# Yazi Keymap Configuration
+# ============================================================
 
-[manager]
+[mgr]
 prepend_keymap = [
-  # q で終了（ディレクトリ引き継ぎなし）
-  { on = ["q"], run = "quit --no-cwd-file", desc = "Quit without changing directory" },
-  # Q で終了（ディレクトリ引き継ぎあり）
-  { on = ["Q"], run = "quit", desc = "Quit and change to current directory" },
+  # smart-enter: Enterキーでディレクトリなら中に移動、ファイルなら開く
+  { on = "<Enter>", run = "plugin smart-enter", desc = "Enter directory or open file" },
+
+  # 選択したディレクトリにcdして終了 (Shift+Q)
+  # ディレクトリを選択している場合はそこに、ファイルの場合は現在のディレクトリにcd
+  { on = "Q", run = "plugin cd-to-selected", desc = "cd to selected directory and quit" },
 ]
