@@ -55,6 +55,7 @@
 /.config/uv
 /.config/wandb
 /.config/wireshark
+/.config/atuin
 /.config/wezterm/_wezterm.lua
 /.config/.claude
 .DS_Store
