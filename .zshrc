@@ -24,13 +24,8 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 
 # Language
-if locale -a 2>/dev/null | grep -q "^en_US.UTF-8"; then
-    export LANG='en_US.UTF-8'
-    export LC_ALL='en_US.UTF-8'
-else
-    export LANG='C.UTF-8'
-    export LC_ALL='C.UTF-8'
-fi
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
 
 # History
 export HISTFILE="$HOME/.zsh_history"
@@ -82,8 +77,12 @@ case ":$PATH:" in
     *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+# Go
+export PATH="$PATH:$(go env GOPATH)/bin"
+
 # Antigravity
 export PATH="/Users/ekunish/.antigravity/antigravity/bin:$PATH"
+
 
 # ============================================================
 # Conda / Miniforge (PRESERVED)
@@ -590,3 +589,4 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -z "$INSIDE_EMACS" ] && [
         :  # Disabled by default, uncomment above to enable
     fi
 fi
+
