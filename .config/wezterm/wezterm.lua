@@ -162,16 +162,59 @@ local process_icons = {
 
 local function get_process_name(pane)
   local name = pane.foreground_process_name or ''
-  return name:gsub('(.*/)(.*)', '%2')
+  name = name:gsub('(.*/)(.*)', '%2')
+  return (name:gsub('^%-', ''))
 end
 
 local function get_cwd_basename(pane)
-  local cwd = pane:get_current_working_dir()
+  local cwd = pane.current_working_dir
   if not cwd then return '' end
-  local path = cwd.file_path or ''
+  local path = cwd.file_path or tostring(cwd) or ''
+  path = path:gsub('/$', '')
   local home = os.getenv('HOME') or ''
-  if path == home or path == home .. '/' then return '~' end
+  if path == home then return '~' end
   return path:gsub('(.*/)(.*)', '%2')
+end
+
+-- ssh/mosh/et の argv から接続先ホスト名を抽出（user_vars.HOSTNAME が無い時の fallback）
+local SSH_FLAGS_WITH_ARG = {
+  ['-l']=true, ['-p']=true, ['-i']=true, ['-o']=true, ['-F']=true,
+  ['-b']=true, ['-c']=true, ['-D']=true, ['-E']=true, ['-e']=true,
+  ['-I']=true, ['-J']=true, ['-L']=true, ['-m']=true, ['-O']=true,
+  ['-Q']=true, ['-R']=true, ['-S']=true, ['-W']=true, ['-w']=true,
+  ['-B']=true,
+}
+
+local function parse_remote_host_from_argv(argv)
+  if not argv or #argv < 2 then return nil end
+  local skip = false
+  for i = 2, #argv do
+    local a = argv[i]
+    if skip then
+      skip = false
+    elseif SSH_FLAGS_WITH_ARG[a] then
+      skip = true
+    elseif a:sub(1, 1) == '-' then
+      -- 結合フラグ (-oX=Y) や短ブーリアン (-vvv) はスキップ
+    else
+      local h = a:match('([^@]+)$') or a           -- user@host → host
+      -- IPv4 (+ optional :port) はそのまま返す
+      local ipv4 = h:match('^(%d+%.%d+%.%d+%.%d+)')
+      if ipv4 then return ipv4 end
+      h = h:match('([^:]+)') or h                  -- host:port → host
+      h = h:match('([^%.]+)') or h                 -- host.fqdn → host
+      return h
+    end
+  end
+  return nil
+end
+
+local function get_remote_host_via_argv(pane)
+  local ok, mpane = pcall(mux.get_pane, pane.pane_id)
+  if not ok or not mpane then return nil end
+  local info = mpane:get_foreground_process_info()
+  if not info or not info.argv then return nil end
+  return parse_remote_host_from_argv(info.argv)
 end
 
 local TAB_WIDTH = 20
@@ -197,9 +240,17 @@ wezterm.on('format-tab-title', function(tab)
   if title and #title > 0 then
     label = title
   else
-    -- シェルの場合はディレクトリ名を表示、それ以外はプロセス名
     local shells = { zsh = true, bash = true, fish = true }
-    label = shells[process] and get_cwd_basename(pane) or process
+    local remote_cmds = { ssh = true, mosh = true, et = true }
+    local local_host = wezterm.hostname():gsub('%..*', '')
+
+    if shells[process] or process == 'tmux' then
+      label = local_host .. ':' .. get_cwd_basename(pane)
+    elseif remote_cmds[process] then
+      label = get_remote_host_via_argv(pane) or process
+    else
+      label = process
+    end
   end
 
   -- ズームインジケーター
