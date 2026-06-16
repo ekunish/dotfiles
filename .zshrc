@@ -321,6 +321,27 @@ gce() {
     fi
 }
 
+# WiFiman Teleport: TCP MSSをクランプしてMTUブラックホールを回避（pf版）
+# 低MTUの公衆WiFiでTeleportが大きいパケットを落とす問題への対処。
+# インターフェースMTUに非依存なのでWiFimanのMTU差し戻しに強い（ifconfig版より確実）。
+# 使い方: Teleport接続後に `teleport-fix`（MSS変更は `teleport-fix 1140`、解除は `teleport-fix off`）
+teleport-fix() {
+    if [[ "$1" == "off" ]]; then
+        sudo pfctl -f /etc/pf.conf >/dev/null 2>&1; sudo pfctl -d 2>/dev/null
+        echo "pf MSSクランプ解除（pfを既定に戻して無効化）"
+        return
+    fi
+    local mss=1160                       # 内側 = MSS+40 = 1200 相当（実証済みの安全値）
+    [[ "$1" =~ '^[0-9]+$' ]] && mss="$1"
+    # Apple既定の /etc/pf.conf を保ったまま、先頭にMSSクランプを1行足してロード
+    if { echo "scrub out proto tcp all max-mss $mss"; cat /etc/pf.conf; } | sudo pfctl -Ef - 2>/dev/null; then
+        echo "pf MSSクランプ有効: max-mss $mss（内側 $((mss+40)) 相当）"
+        sudo pfctl -s rules 2>/dev/null | grep -m1 max-mss
+    else
+        echo "pfクランプの適用に失敗しました" >&2; return 1
+    fi
+}
+
 # Yazi wrapper - change directory on exit
 if command -v yazi &> /dev/null; then
     y() {
